@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiwan Military Brigade and Corps Headquarters Map - NATO Symbols</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #1a1a2e;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .legend h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+        .legend-symbol {
+            width: 50px;
+            height: 35px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* NATO Symbol Styles */
+        .nato-symbol {
+            width: 60px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #87CEEB;
+            border: 2px solid #000;
+        }
+        
+        .nato-symbol-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .unit-size {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .unit-designation {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        .popup-content {
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 400px;
+        }
+        .popup-content h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .popup-content p {
+            margin: 5px 0;
+        }
+        .unit-structure {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .unit-structure h5 {
+            margin: 10px 0 5px 0;
+            color: #555;
+            font-size: 13px;
+        }
+        .unit-list {
+            margin-left: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        .unit-list li {
+            margin: 3px 0;
+        }
+        .map-controls {
+            position: absolute;
+            top: 80px;
+            left: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .map-controls button {
+            display: block;
+            width: 100%;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .map-controls button:hover {
+            background: #f0f0f0;
+        }
+        .map-controls button.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        /* Battalion Bank Styles */
+        .battalion-bank {
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .battalion-bank h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .battalion-symbols {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .draggable-symbol {
+            cursor: move;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .draggable-symbol:hover {
+            border-color: #007bff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+        }
+        
+        .draggable-symbol.dragging {
+            opacity: 0.5;
+        }
+        
+        .draggable-symbol svg {
+            pointer-events: none;
+        }
+        
+        .draggable-symbol p {
+            margin: 5px 0 0 0;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .drag-preview {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="legend">
+        <h3>NATO Military Symbols</h3>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <text x="25" y="22" text-anchor="middle" font-size="14" font-weight="bold">HQ</text>
+                </svg>
+            </div>
+            <span>Corps/Command HQ</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="10" x2="40" y2="25" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="25" x2="40" y2="10" stroke="black" stroke-width="2"/>
+                    <ellipse cx="25" cy="17.5" rx="12" ry="7" fill="none" stroke="black" stroke-width="2"/>
+                </svg>
+            </div>
+            <span>Mechanized Infantry</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <ellipse cx="25" cy="17.5" rx="12" ry="7" fill="none" stroke="black" stroke-width="2"/>
+                </svg>
+            </div>
+            <span>Armored/Tank</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <circle cx="25" cy="17.5" r="4" fill="black"/>
+                </svg>
+            </div>
+            <span>Artillery</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="10" x2="40" y2="25" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="25" x2="40" y2="10" stroke="black" stroke-width="2"/>
+                </svg>
+            </div>
+            <span>Infantry</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <circle cx="25" cy="12" r="6" fill="none" stroke="black" stroke-width="1.5"/>
+                    <line x1="25" y1="12" x2="31" y2="12" stroke="black" stroke-width="1.5"/>
+                    <line x1="25" y1="6" x2="25" y2="3" stroke="black" stroke-width="1.5"/>
+                    <line x1="19" y1="12" x2="13" y2="12" stroke="black" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <span>Aviation</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <path d="M 15 20 L 25 10 L 35 20 L 30 17 L 25 22 L 20 17 Z" fill="none" stroke="black" stroke-width="2"/>
+                </svg>
+            </div>
+            <span>Special Forces</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol">
+                <svg width="50" height="35" viewBox="0 0 50 35">
+                    <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <path d="M 15 17.5 L 35 17.5 M 25 10 L 25 25" stroke="black" stroke-width="2"/>
+                    <path d="M 15 25 Q 25 20 35 25" fill="none" stroke="black" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <span>Marine/Amphibious</span>
+        </div>
+        <div class="legend-item">
+            <span style="margin-left: 10px;"><strong>Unit Size Indicators:</strong></span>
+        </div>
+        <div class="legend-item">
+            <span style="margin-left: 20px;">X = Brigade | XXX = Division/Corps</span>
+        </div>
+    </div>
+    
+    <div class="map-controls">
+        <button id="terrain-btn" class="active">Terrain</button>
+        <button id="satellite-btn">Satellite</button>
+        <button id="street-btn">Street Map</button>
+    </div>
+    
+    <div class="battalion-bank">
+        <h4>Battalion Symbol Bank</h4>
+        <p style="font-size: 12px; color: #666; margin: 5px 0;">Drag symbols onto map to place units</p>
+        <div class="battalion-symbols">
+            <div class="draggable-symbol" data-type="infantry" data-size="battalion">
+                <svg width="60" height="50" viewBox="0 0 60 50">
+                    <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                    <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                    <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="30" x2="50" y2="40" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="40" x2="50" y2="30" stroke="black" stroke-width="2"/>
+                </svg>
+                <p>Infantry Bn</p>
+            </div>
+            <div class="draggable-symbol" data-type="mech-infantry" data-size="battalion">
+                <svg width="60" height="50" viewBox="0 0 60 50">
+                    <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                    <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                    <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="30" x2="50" y2="40" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="40" x2="50" y2="30" stroke="black" stroke-width="2"/>
+                    <ellipse cx="30" cy="35" rx="15" ry="8" fill="none" stroke="black" stroke-width="2"/>
+                </svg>
+                <p>Mech Inf Bn</p>
+            </div>
+            <div class="draggable-symbol" data-type="armor" data-size="battalion">
+                <svg width="60" height="50" viewBox="0 0 60 50">
+                    <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                    <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                    <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <ellipse cx="30" cy="35" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                </svg>
+                <p>Tank Bn</p>
+            </div>
+            <div class="draggable-symbol" data-type="artillery" data-size="battalion">
+                <svg width="60" height="50" viewBox="0 0 60 50">
+                    <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                    <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                    <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <circle cx="30" cy="35" r="5" fill="black"/>
+                </svg>
+                <p>Artillery Bn</p>
+            </div>
+            <div class="draggable-symbol" data-type="recon" data-size="battalion">
+                <svg width="60" height="50" viewBox="0 0 60 50">
+                    <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                    <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                    <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="35" x2="50" y2="35" stroke="black" stroke-width="2"/>
+                    <line x1="10" y1="30" x2="10" y2="40" stroke="black" stroke-width="2"/>
+                    <line x1="50" y1="30" x2="50" y2="40" stroke="black" stroke-width="2"/>
+                </svg>
+                <p>Recon Bn</p>
+            </div>
+            <div class="draggable-symbol" data-type="engineer" data-size="battalion">
+                <svg width="60" height="50" viewBox="0 0 60 50">
+                    <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                    <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                    <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    <text x="30" y="40" text-anchor="middle" font-size="14" font-weight="bold">E</text>
+                </svg>
+                <p>Engineer Bn</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize the map centered on Taiwan
+        const map = L.map('map', {
+            center: [23.8, 121],
+            zoom: 8,
+            maxZoom: 18,
+            minZoom: 6
+        });
+
+        // Create different tile layers
+        const terrainLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors, © OpenTopoMap',
+            maxZoom: 17
+        });
+
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '© Esri'
+        });
+
+        const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        });
+
+        // Add default layer
+        terrainLayer.addTo(map);
+        let currentLayer = terrainLayer;
+
+        // Layer switching
+        document.getElementById('terrain-btn').addEventListener('click', function() {
+            if (currentLayer !== terrainLayer) {
+                map.removeLayer(currentLayer);
+                terrainLayer.addTo(map);
+                currentLayer = terrainLayer;
+                document.querySelectorAll('.map-controls button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        document.getElementById('satellite-btn').addEventListener('click', function() {
+            if (currentLayer !== satelliteLayer) {
+                map.removeLayer(currentLayer);
+                satelliteLayer.addTo(map);
+                currentLayer = satelliteLayer;
+                document.querySelectorAll('.map-controls button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        document.getElementById('street-btn').addEventListener('click', function() {
+            if (currentLayer !== streetLayer) {
+                map.removeLayer(currentLayer);
+                streetLayer.addTo(map);
+                currentLayer = streetLayer;
+                document.querySelectorAll('.map-controls button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        // Function to create NATO symbol SVG
+        function createNATOSymbol(type, size, designation) {
+            let symbolContent = '';
+            let width = 60;
+            let height = 40;
+            let topOffset = 20; // Space for size indicator above
+            
+            // Size indicators - drawn as symbols above the rectangle
+            let sizeSymbol = '';
+            switch(size) {
+                case 'brigade': 
+                    // Single X above for brigade
+                    sizeSymbol = `
+                        <line x1="${width/2 - 8}" y1="5" x2="${width/2 + 8}" y2="18" stroke="black" stroke-width="2.5"/>
+                        <line x1="${width/2 - 8}" y1="18" x2="${width/2 + 8}" y2="5" stroke="black" stroke-width="2.5"/>
+                    `;
+                    break;
+                case 'corps': 
+                    // XXX for corps
+                    sizeSymbol = `
+                        <line x1="${width/2 - 20}" y1="5" x2="${width/2 - 10}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 20}" y1="15" x2="${width/2 - 10}" y2="5" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 5}" y1="5" x2="${width/2 + 5}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 5}" y1="15" x2="${width/2 + 5}" y2="5" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 + 10}" y1="5" x2="${width/2 + 20}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 + 10}" y1="15" x2="${width/2 + 20}" y2="5" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'battalion': 
+                    // II for battalion
+                    sizeSymbol = `
+                        <line x1="${width/2 - 8}" y1="5" x2="${width/2 - 8}" y2="15" stroke="black" stroke-width="2.5"/>
+                        <line x1="${width/2 + 8}" y1="5" x2="${width/2 + 8}" y2="15" stroke="black" stroke-width="2.5"/>
+                    `;
+                    break;
+                case 'company': 
+                    // I for company
+                    sizeSymbol = `
+                        <line x1="${width/2}" y1="5" x2="${width/2}" y2="15" stroke="black" stroke-width="2.5"/>
+                    `;
+                    break;
+                case 'regiment': 
+                    // III for regiment
+                    sizeSymbol = `
+                        <line x1="${width/2 - 12}" y1="5" x2="${width/2 - 12}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2}" y1="5" x2="${width/2}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 + 12}" y1="5" x2="${width/2 + 12}" y2="15" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+            }
+            
+            // Create different symbols based on type
+            switch(type) {
+                case 'corps-hq':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <text x="${width/2}" y="${topOffset + height/2 + 5}" text-anchor="middle" font-size="14" font-weight="bold">HQ</text>
+                    `;
+                    break;
+                case 'mech-infantry':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <line x1="10" y1="${topOffset + 10}" x2="${width-10}" y2="${topOffset + height-10}" stroke="black" stroke-width="2"/>
+                        <line x1="10" y1="${topOffset + height-10}" x2="${width-10}" y2="${topOffset + 10}" stroke="black" stroke-width="2"/>
+                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'armor':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                    `;
+                    break;
+                case 'artillery':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="5" fill="black"/>
+                    `;
+                    break;
+                case 'infantry':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <line x1="10" y1="${topOffset + 10}" x2="${width-10}" y2="${topOffset + height-10}" stroke="black" stroke-width="2"/>
+                        <line x1="10" y1="${topOffset + height-10}" x2="${width-10}" y2="${topOffset + 10}" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'aviation':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <circle cx="${width/2}" cy="${topOffset + height/2-3}" r="8" fill="none" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2}" y1="${topOffset + height/2-3}" x2="${width/2+10}" y2="${topOffset + height/2-3}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2}" y1="${topOffset + height/2-11}" x2="${width/2}" y2="${topOffset + height/2-15}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2-10}" y1="${topOffset + height/2-3}" x2="${width/2-14}" y2="${topOffset + height/2-3}" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'special-forces':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <path d="M 15 ${topOffset + height-10} L ${width/2} ${topOffset + 10} L ${width-15} ${topOffset + height-10} L ${width-20} ${topOffset + height-13} L ${width/2} ${topOffset + height-5} L 20 ${topOffset + height-13} Z" fill="none" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'marine':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <line x1="15" y1="${topOffset + height/2}" x2="${width-15}" y2="${topOffset + height/2}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2}" y1="${topOffset + 10}" x2="${width/2}" y2="${topOffset + height-10}" stroke="black" stroke-width="2"/>
+                        <path d="M 15 ${topOffset + height-10} Q ${width/2} ${topOffset + height-15} ${width-15} ${topOffset + height-10}" fill="none" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'area-command':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <rect x="15" y="${topOffset + 10}" width="${width-30}" height="${height-20}" fill="none" stroke="black" stroke-width="1.5"/>
+                    `;
+                    break;
+                case 'reserve':
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#F0E68C" stroke="black" stroke-width="2"/>
+                        <text x="${width/2}" y="${topOffset + height/2 + 5}" text-anchor="middle" font-size="14" font-weight="bold">R</text>
+                    `;
+                    break;
+                default:
+                    symbolContent = `
+                        <rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                    `;
+            }
+            
+            return `
+                <svg width="${width}" height="${height + topOffset + 20}" xmlns="http://www.w3.org/2000/svg">
+                    ${sizeSymbol}
+                    ${symbolContent}
+                    ${designation ? `<text x="${width/2}" y="${topOffset + height + 15}" text-anchor="middle" font-size="11" font-weight="bold">${designation}</text>` : ''}
+                </svg>
+            `;
+        }
+
+        // Function to create custom NATO icon for Leaflet
+        function createNATOIcon(type, size, designation) {
+            const svgString = createNATOSymbol(type, size, designation);
+            const iconUrl = 'data:image/svg+xml;base64,' + btoa(svgString);
+            
+            return L.icon({
+                iconUrl: iconUrl,
+                iconSize: [60, 80],
+                iconAnchor: [30, 40],
+                popupAnchor: [0, -40]
+            });
+        }
+
+        // Define military unit locations with NATO symbology
+        const militaryUnits = [
+            // 6th Army Corps (Northern Taiwan)
+            {
+                name: "6th Army Corps Command",
+                natoType: "corps-hq",
+                size: "corps",
+                designation: "6",
+                lat: 25.0375,
+                lng: 121.5645,
+                description: "Northern Taiwan Command<br>Chien-Feng Force (前鋒部隊)",
+                subordinates: {
+                    "Direct Units": [
+                        "53rd Engineer Group",
+                        "73rd Signal Group", 
+                        "33rd Chemical Warfare Group",
+                        "3rd Area Logistics Support Command"
+                    ],
+                    "Combat Brigades": [
+                        "269th Mechanized Infantry Brigade",
+                        "542nd Armored Brigade",
+                        "584th Armored Brigade",
+                        "21st Artillery Command"
+                    ],
+                    "Area Commands": [
+                        "Guandu Area Command",
+                        "Lanyang Area Command"
+                    ]
+                }
+            },
+            {
+                name: "269th Mechanized Infantry Brigade",
+                natoType: "mech-infantry",
+                size: "brigade",
+                designation: "269",
+                lat: 24.9936,
+                lng: 121.3018,
+                description: "Based in Taoyuan<br>CM-33 Clouded Leopard equipped",
+                subordinates: {
+                    "Battalions": [
+                        "1st Mechanized Infantry Battalion",
+                        "2nd Mechanized Infantry Battalion",
+                        "3rd Mechanized Infantry Battalion",
+                        "Tank Battalion",
+                        "Artillery Battalion"
+                    ],
+                    "Companies": [
+                        "Headquarters Company",
+                        "Support Company",
+                        "Reconnaissance Company",
+                        "Anti-Tank Company",
+                        "Engineer Company"
+                    ]
+                }
+            },
+            {
+                name: "542nd Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "542",
+                lat: 24.8138,
+                lng: 120.9675,
+                description: "Based in Hsinchu<br>Combined Arms Brigade<br>M1A2 Abrams training unit",
+                subordinates: {
+                    "Battalions": [
+                        "1st Tank Battalion (M60A3)",
+                        "2nd Tank Battalion (CM-11)",
+                        "1st Mechanized Infantry Battalion",
+                        "2nd Mechanized Infantry Battalion",
+                        "Artillery Battalion"
+                    ],
+                    "Companies": [
+                        "Headquarters Company",
+                        "Support Company",
+                        "Reconnaissance Company",
+                        "Engineer Company",
+                        "Signal Company"
+                    ]
+                }
+            },
+            {
+                name: "584th Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "584",
+                lat: 25.0776,
+                lng: 121.2330,
+                description: "Northern armored unit<br>Combined Arms Brigade",
+                subordinates: {
+                    "Battalions": [
+                        "1st Tank Battalion",
+                        "2nd Tank Battalion",
+                        "1st Mechanized Infantry Battalion",
+                        "2nd Mechanized Infantry Battalion",
+                        "Artillery Battalion"
+                    ],
+                    "Companies": [
+                        "Headquarters Company",
+                        "Support Company",
+                        "Reconnaissance Company",
+                        "Anti-Tank Company",
+                        "Engineer Company"
+                    ]
+                }
+            },
+            {
+                name: "21st Artillery Command",
+                natoType: "artillery",
+                size: "brigade",
+                designation: "21",
+                lat: 25.1276,
+                lng: 121.4430,
+                description: "6th Corps Artillery Support",
+                subordinates: {
+                    "Battalions": [
+                        "1st Field Artillery Battalion (155mm)",
+                        "2nd Field Artillery Battalion (155mm)",
+                        "3rd Field Artillery Battalion (105mm)",
+                        "MLRS Battalion"
+                    ],
+                    "Batteries": [
+                        "Target Acquisition Battery",
+                        "Headquarters Battery",
+                        "Service Battery"
+                    ]
+                }
+            },
+            {
+                name: "Guandu Area Command",
+                natoType: "area-command",
+                size: "brigade",
+                designation: "GDU",
+                lat: 25.1245,
+                lng: 121.4674,
+                description: "Former 26th Infantry Division<br>Guandu District, Taipei",
+                subordinates: {
+                    "Defense Teams": [
+                        "1st Defense Team",
+                        "2nd Defense Team",
+                        "3rd Defense Team"
+                    ],
+                    "Support Units": [
+                        "Area Support Battalion",
+                        "Military Police Company",
+                        "Signal Company"
+                    ]
+                }
+            },
+            {
+                name: "Lanyang Area Command",
+                natoType: "area-command",
+                size: "brigade",
+                designation: "LY",
+                lat: 24.7021,
+                lng: 121.7377,
+                description: "Former 51st Infantry Division<br>Yilan area defense",
+                subordinates: {
+                    "Defense Teams": [
+                        "1st Defense Team",
+                        "2nd Defense Team"
+                    ],
+                    "Support Units": [
+                        "Area Support Battalion",
+                        "Coast Defense Company",
+                        "Signal Company"
+                    ]
+                }
+            },
+
+            // 8th Army Corps (Southern Taiwan)
+            {
+                name: "8th Army Corps Command",
+                natoType: "corps-hq",
+                size: "corps",
+                designation: "8",
+                lat: 22.6273,
+                lng: 120.3014,
+                description: "Southern Taiwan Command<br>Gan-Cheng Force (干城部隊)<br>Based in Kaohsiung",
+                subordinates: {
+                    "Direct Units": [
+                        "54th Engineer Group",
+                        "75th Signal Group",
+                        "39th Chemical Warfare Group",
+                        "4th Area Logistics Support Command"
+                    ],
+                    "Combat Brigades": [
+                        "333rd Mechanized Infantry Brigade",
+                        "564th Armored Brigade",
+                        "43rd Artillery Command"
+                    ]
+                }
+            },
+            {
+                name: "333rd Mechanized Infantry Brigade",
+                natoType: "mech-infantry",
+                size: "brigade",
+                designation: "333",
+                lat: 22.5676,
+                lng: 120.3493,
+                description: "Based in Kaohsiung Fengshan<br>Rapid response unit",
+                subordinates: {
+                    "Battalions": [
+                        "1st Mechanized Infantry Battalion",
+                        "2nd Mechanized Infantry Battalion",
+                        "3rd Mechanized Infantry Battalion",
+                        "Tank Battalion",
+                        "Artillery Battalion"
+                    ],
+                    "Companies": [
+                        "Headquarters Company",
+                        "Support Company",
+                        "Reconnaissance Company",
+                        "Anti-Tank Company",
+                        "Engineer Company"
+                    ]
+                }
+            },
+            {
+                name: "564th Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "564",
+                lat: 22.9998,
+                lng: 120.2268,
+                description: "Southern armored unit<br>Based in Tainan area",
+                subordinates: {
+                    "Battalions": [
+                        "1st Tank Battalion",
+                        "2nd Tank Battalion",
+                        "1st Mechanized Infantry Battalion",
+                        "2nd Mechanized Infantry Battalion",
+                        "Artillery Battalion"
+                    ],
+                    "Companies": [
+                        "Headquarters Company",
+                        "Support Company",
+                        "Reconnaissance Company",
+                        "Engineer Company"
+                    ]
+                }
+            },
+            {
+                name: "43rd Artillery Command",
+                natoType: "artillery",
+                size: "brigade",
+                designation: "43",
+                lat: 22.6873,
+                lng: 120.4914,
+                description: "8th Corps Artillery Support",
+                subordinates: {
+                    "Battalions": [
+                        "1st Field Artillery Battalion (155mm)",
+                        "2nd Field Artillery Battalion (155mm)",
+                        "3rd Field Artillery Battalion (105mm)",
+                        "Rocket Artillery Battalion"
+                    ],
+                    "Batteries": [
+                        "Target Acquisition Battery",
+                        "Headquarters Battery",
+                        "Service Battery"
+                    ]
+                }
+            },
+
+            // 10th Army Corps (Central Taiwan)
+            {
+                name: "10th Army Corps Command",
+                natoType: "corps-hq",
+                size: "corps",
+                designation: "10",
+                lat: 24.2548,
+                lng: 120.7209,
+                description: "Central Taiwan Command<br>Kunlun Force (崑崙部隊)<br>Based in Taichung Xinshe",
+                subordinates: {
+                    "Direct Units": [
+                        "52nd Engineer Group",
+                        "74th Signal Group",
+                        "36th Chemical Warfare Group",
+                        "5th Area Logistics Support Command"
+                    ],
+                    "Combat Brigades": [
+                        "234th Mechanized Infantry Brigade",
+                        "586th Armored Brigade",
+                        "58th Artillery Command"
+                    ]
+                }
+            },
+            {
+                name: "234th Mechanized Infantry Brigade",
+                natoType: "mech-infantry",
+                size: "brigade",
+                designation: "234",
+                lat: 24.1469,
+                lng: 120.6739,
+                description: "CM-32 Clouded Leopard equipped",
+                subordinates: {
+                    "Battalions": [
+                        "1st Mechanized Infantry Battalion",
+                        "2nd Mechanized Infantry Battalion",
+                        "3rd Mechanized Infantry Battalion",
+                        "Tank Battalion",
+                        "Artillery Battalion"
+                    ],
+                    "Companies": [
+                        "Headquarters Company",
+                        "Support Company",
+                        "Reconnaissance Company",
+                        "Anti-Tank Company",
+                        "Engineer Company"
+                    ]
+                }
+            },
+            {
+                name: "586th Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "586",
+                lat: 24.0847,
+                lng: 120.5401,
+                description: "Central armored unit<br>Combined Arms Brigade",
+                subordinates: {
+                    "Battalions": [
+                        "1st Tank Battalion",
+                        "2nd Tank Battalion",
+                        "1st Mechanized Infantry Battalion",
+                        "2nd Mechanized Infantry Battalion",
+                        "Artillery Battalion"
+                    ],
+                    "Companies": [
+                        "Headquarters Company",
+                        "Support Company",
+                        "Reconnaissance Company",
+                        "Engineer Company"
+                    ]
+                }
+            },
+            {
+                name: "58th Artillery Command",
+                natoType: "artillery",
+                size: "brigade",
+                designation: "58",
+                lat: 24.2048,
+                lng: 120.6209,
+                description: "10th Corps Artillery Support",
+                subordinates: {
+                    "Battalions": [
+                        "1st Field Artillery Battalion",
+                        "2nd Field Artillery Battalion",
+                        "3rd Field Artillery Battalion",
+                        "MLRS Battalion"
+                    ],
+                    "Batteries": [
+                        "Target Acquisition Battery",
+                        "Headquarters Battery",
+                        "Service Battery"
+                    ]
+                }
+            },
+
+            // Defense Commands
+            {
+                name: "Kinmen Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "KM",
+                lat: 24.4493,
+                lng: 118.3285,
+                description: "Kinmen Island defense<br>Taiwu Force (太武部隊)<br>First line of defense",
+                subordinates: {
+                    "Units": [
+                        "Kinmen Defense Battalion",
+                        "Artillery Group",
+                        "Air Defense Battalion",
+                        "Lieyu Area Command",
+                        "Coastal Defense Units"
+                    ],
+                    "Support": [
+                        "Signal Company",
+                        "Engineer Company",
+                        "Support Battalion"
+                    ]
+                }
+            },
+            {
+                name: "Matsu Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "MT",
+                lat: 26.1605,
+                lng: 119.9545,
+                description: "Matsu Islands defense<br>Yuntai Force (雲台部隊)",
+                subordinates: {
+                    "Island Commands": [
+                        "Nangan Defense Team",
+                        "Beigan Defense Team",
+                        "Dongju Defense Team",
+                        "Xiju Defense Team"
+                    ],
+                    "Support Units": [
+                        "Artillery Battalion",
+                        "Air Defense Company",
+                        "Signal Company"
+                    ]
+                }
+            },
+            {
+                name: "Penghu Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "PH",
+                lat: 23.5711,
+                lng: 119.5793,
+                description: "Penghu Islands defense<br>Zhenhai Force (鎮海部隊)",
+                subordinates: {
+                    "Units": [
+                        "Penghu Defense Battalion",
+                        "Artillery Group",
+                        "Air Defense Battalion",
+                        "Coastal Defense Units"
+                    ],
+                    "Support": [
+                        "Signal Company",
+                        "Engineer Company",
+                        "Logistics Battalion"
+                    ]
+                }
+            },
+            {
+                name: "Huadong Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "HD",
+                lat: 23.9871,
+                lng: 121.6011,
+                description: "Eastern Taiwan defense<br>Based in Hualien",
+                subordinates: {
+                    "Defense Teams": [
+                        "Hualien Defense Team",
+                        "Taitung Defense Team"
+                    ],
+                    "Support Units": [
+                        "Artillery Battalion",
+                        "Engineer Company",
+                        "Signal Company",
+                        "Support Battalion"
+                    ]
+                }
+            },
+            {
+                name: "Dongyin Area Command",
+                natoType: "infantry",
+                size: "battalion",
+                designation: "DY",
+                lat: 26.3608,
+                lng: 120.4900,
+                description: "Dongyin Island defense<br>Loyalty Force (忠義部隊)",
+                subordinates: {
+                    "Units": [
+                        "Dongyin Defense Team",
+                        "Xiyin Defense Team",
+                        "Air Defense Platoon"
+                    ],
+                    "Support": [
+                        "Signal Detachment",
+                        "Engineer Detachment",
+                        "Support Company"
+                    ]
+                }
+            },
+
+            // Special Forces and Aviation
+            {
+                name: "Aviation & Special Forces Command",
+                natoType: "aviation",
+                size: "brigade",
+                designation: "ASFC",
+                lat: 24.8597,
+                lng: 121.2216,
+                description: "Based in Taoyuan Longtan<br>Wo-Han Force (臥虎部隊)",
+                subordinates: {
+                    "Aviation Brigades": [
+                        "601st Aviation Brigade (AH-64E Apache, AH-1W Cobra)",
+                        "602nd Aviation Brigade (UH-60M Black Hawk)",
+                        "603rd Aviation Brigade (CH-47SD Chinook)"
+                    ],
+                    "Special Forces": [
+                        "862nd Special Warfare Brigade",
+                        "101st Amphibious Reconnaissance Battalion (Sea Dragons)",
+                        "Airborne Training Center",
+                        "Special Forces Training Center"
+                    ]
+                }
+            },
+            {
+                name: "862nd Special Warfare Brigade",
+                natoType: "special-forces",
+                size: "brigade",
+                designation: "862",
+                lat: 24.8397,
+                lng: 121.2016,
+                description: "Special Operations Force",
+                subordinates: {
+                    "Battalions": [
+                        "1st Special Operations Battalion (Night Hawks)",
+                        "2nd Special Operations Battalion (Sky Dragons)",
+                        "3rd Special Operations Battalion",
+                        "4th Special Operations Battalion",
+                        "5th Special Operations Battalion"
+                    ],
+                    "Special Units": [
+                        "High Altitude Training Company",
+                        "Combat Diver Company",
+                        "Psychological Operations Company"
+                    ]
+                }
+            },
+            {
+                name: "Airborne Special Service Company",
+                natoType: "special-forces",
+                size: "company",
+                designation: "ASSC",
+                lat: 22.6729,
+                lng: 120.4881,
+                description: "Elite Counter-Terrorism Unit<br>Based in Pingtung<br>涼山特勤隊",
+                subordinates: {
+                    "Teams": [
+                        "Assault Team Alpha",
+                        "Assault Team Bravo",
+                        "Sniper/Observer Teams",
+                        "EOD Team",
+                        "Communications Team"
+                    ],
+                    "Support": [
+                        "Intelligence Section",
+                        "Logistics Section",
+                        "Medical Section"
+                    ]
+                }
+            },
+
+            // Marine Corps
+            {
+                name: "Marine Corps Command",
+                natoType: "marine",
+                size: "brigade",
+                designation: "MC",
+                lat: 22.6819,
+                lng: 120.2925,
+                description: "Naval Infantry Command<br>Based in Kaohsiung Zuoying",
+                subordinates: {
+                    "Brigades": [
+                        "66th Marine Brigade",
+                        "99th Marine Brigade"
+                    ],
+                    "Special Units": [
+                        "Amphibious Reconnaissance & Patrol Unit",
+                        "AAV Battalion (AAV-7)",
+                        "Marine Guard Battalion"
+                    ]
+                }
+            },
+            {
+                name: "66th Marine Brigade",
+                natoType: "marine",
+                size: "brigade",
+                designation: "66",
+                lat: 22.6719,
+                lng: 120.2825,
+                description: "Amphibious assault unit",
+                subordinates: {
+                    "Battalions": [
+                        "1st Marine Battalion",
+                        "2nd Marine Battalion",
+                        "3rd Marine Battalion",
+                        "Artillery Battalion",
+                        "Tank Company (AAV-7)"
+                    ]
+                }
+            },
+            {
+                name: "99th Marine Brigade",
+                natoType: "marine",
+                size: "brigade",
+                designation: "99",
+                lat: 22.6919,
+                lng: 120.3025,
+                description: "Amphibious operations",
+                subordinates: {
+                    "Battalions": [
+                        "1st Marine Battalion",
+                        "2nd Marine Battalion",
+                        "3rd Marine Battalion",
+                        "Artillery Battalion",
+                        "Combat Support Battalion"
+                    ]
+                }
+            },
+
+            // Reserve Commands
+            {
+                name: "Northern Reserve Command",
+                natoType: "reserve",
+                size: "brigade",
+                designation: "NRC",
+                lat: 25.0630,
+                lng: 121.5230,
+                description: "Northern Taiwan reserves",
+                subordinates: {
+                    "Regional Commands": [
+                        "Taipei City Reserve Service",
+                        "New Taipei Reserve Service",
+                        "Taoyuan Reserve Service",
+                        "Hsinchu Reserve Service"
+                    ],
+                    "Reserve Brigades": [
+                        "Northern Infantry Brigade (Reserve)",
+                        "Training Regiment"
+                    ]
+                }
+            },
+            {
+                name: "Central Reserve Command",
+                natoType: "reserve",
+                size: "brigade",
+                designation: "CRC",
+                lat: 24.1477,
+                lng: 120.6746,
+                description: "Central Taiwan reserves",
+                subordinates: {
+                    "Regional Commands": [
+                        "Taichung Reserve Service",
+                        "Changhua Reserve Service",
+                        "Nantou Reserve Service",
+                        "Yunlin Reserve Service"
+                    ],
+                    "Reserve Brigades": [
+                        "Central Infantry Brigade (Reserve)",
+                        "Training Regiment"
+                    ]
+                }
+            },
+            {
+                name: "Southern Reserve Command",
+                natoType: "reserve",
+                size: "brigade",
+                designation: "SRC",
+                lat: 22.6273,
+                lng: 120.3014,
+                description: "Southern Taiwan reserves",
+                subordinates: {
+                    "Regional Commands": [
+                        "Kaohsiung Reserve Service",
+                        "Tainan Reserve Service",
+                        "Pingtung Reserve Service",
+                        "Chiayi Reserve Service"
+                    ],
+                    "Reserve Brigades": [
+                        "Southern Infantry Brigade (Reserve)",
+                        "Training Regiment"
+                    ]
+                }
+            }
+        ];
+
+        // Function to format subordinate units for popup
+        function formatSubordinates(subordinates) {
+            if (!subordinates) return '';
+            
+            let html = '<div class="unit-structure">';
+            for (const [category, units] of Object.entries(subordinates)) {
+                html += `<h5>${category}:</h5>`;
+                html += '<ul class="unit-list">';
+                units.forEach(unit => {
+                    html += `<li>${unit}</li>`;
+                });
+                html += '</ul>';
+            }
+            html += '</div>';
+            return html;
+        }
+
+        // Add markers to the map
+        militaryUnits.forEach(unit => {
+            const marker = L.marker([unit.lat, unit.lng], {
+                icon: createNATOIcon(unit.natoType, unit.size, unit.designation)
+            }).addTo(map);
+            
+            const popupContent = `
+                <div class="popup-content">
+                    <h4>${unit.name}</h4>
+                    <p>${unit.description}</p>
+                    ${formatSubordinates(unit.subordinates)}
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent, {
+                maxWidth: 400,
+                maxHeight: 400
+            });
+        });
+
+        // Add a title overlay
+        const info = L.control({position: 'topleft'});
+        info.onAdd = function() {
+            const div = L.DomUtil.create('div', 'info');
+            div.innerHTML = `
+                <div style="background: rgba(255,255,255,0.95); padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    <h2 style="margin: 0 0 10px 0; color: #333;">Taiwan Military Units</h2>
+                    <p style="margin: 0; color: #666; font-size: 14px;">NATO APP-6 Military Symbols</p>
+                    <p style="margin: 5px 0 0 0; color: #888; font-size: 12px;">Click units to see subordinates • Drag battalions from bank to place</p>
+                </div>
+            `;
+            return div;
+        };
+        info.addTo(map);
+        
+        // Drag and Drop functionality for battalion symbols
+        let draggedElement = null;
+        let dragPreview = null;
+        let droppedBattalions = [];
+        let battalionCounter = 1;
+        
+        // Add drag listeners to all draggable symbols
+        document.querySelectorAll('.draggable-symbol').forEach(symbol => {
+            symbol.draggable = true;
+            
+            symbol.addEventListener('dragstart', (e) => {
+                draggedElement = e.target;
+                e.target.classList.add('dragging');
+                
+                // Create preview element
+                dragPreview = document.createElement('div');
+                dragPreview.className = 'drag-preview';
+                dragPreview.innerHTML = e.target.innerHTML;
+                document.body.appendChild(dragPreview);
+                
+                // Store the type and size
+                e.dataTransfer.effectAllowed = 'copy';
+                e.dataTransfer.setData('text/plain', JSON.stringify({
+                    type: e.target.dataset.type,
+                    size: e.target.dataset.size
+                }));
+                
+                // Hide default drag image
+                const emptyImg = new Image();
+                e.dataTransfer.setDragImage(emptyImg, 0, 0);
+            });
+            
+            symbol.addEventListener('dragend', (e) => {
+                e.target.classList.remove('dragging');
+                if (dragPreview) {
+                    document.body.removeChild(dragPreview);
+                    dragPreview = null;
+                }
+                draggedElement = null;
+            });
+        });
+        
+        // Update preview position during drag
+        document.addEventListener('dragover', (e) => {
+            if (dragPreview) {
+                dragPreview.style.left = (e.clientX - 30) + 'px';
+                dragPreview.style.top = (e.clientY - 25) + 'px';
+            }
+        });
+        
+        // Handle drop on map
+        const mapContainer = document.getElementById('map');
+        
+        mapContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        });
+        
+        mapContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            
+            if (!draggedElement) return;
+            
+            try {
+                const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+                
+                // Convert screen coordinates to map coordinates
+                const containerPoint = L.point(e.clientX, e.clientY);
+                const latLng = map.containerPointToLatLng(containerPoint);
+                
+                // Generate a unique designation for the battalion
+                const designation = `TMP-${battalionCounter++}`;
+                
+                // Create the appropriate NATO symbol based on type
+                let natoType = data.type;
+                if (data.type === 'recon') {
+                    natoType = 'infantry'; // Use infantry base with recon modifier
+                } else if (data.type === 'engineer') {
+                    natoType = 'infantry'; // Use infantry base with engineer modifier
+                }
+                
+                // Create and add the marker
+                const marker = L.marker([latLng.lat, latLng.lng], {
+                    icon: createNATOIcon(natoType, data.size, designation),
+                    draggable: true
+                }).addTo(map);
+                
+                // Create popup content based on type
+                let unitName = '';
+                switch(data.type) {
+                    case 'infantry': unitName = 'Infantry Battalion'; break;
+                    case 'mech-infantry': unitName = 'Mechanized Infantry Battalion'; break;
+                    case 'armor': unitName = 'Tank Battalion'; break;
+                    case 'artillery': unitName = 'Artillery Battalion'; break;
+                    case 'recon': unitName = 'Reconnaissance Battalion'; break;
+                    case 'engineer': unitName = 'Engineer Battalion'; break;
+                    default: unitName = 'Battalion';
+                }
+                
+                const popupContent = `
+                    <div class="popup-content">
+                        <h4>Temporary ${unitName}</h4>
+                        <p>Designation: ${designation}</p>
+                        <p>Position: ${latLng.lat.toFixed(4)}, ${latLng.lng.toFixed(4)}</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #666;">
+                            User-placed unit<br>
+                            Drag to reposition
+                        </p>
+                        <button onclick="removeDroppedBattalion('${designation}')" style="margin-top: 10px; padding: 5px 10px; background: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                            Remove Unit
+                        </button>
+                    </div>
+                `;
+                
+                marker.bindPopup(popupContent);
+                
+                // Store reference to dropped battalion
+                droppedBattalions.push({
+                    designation: designation,
+                    marker: marker,
+                    type: data.type,
+                    latLng: latLng
+                });
+                
+                // Make the dropped marker draggable
+                marker.on('dragend', function(event) {
+                    const newLatLng = event.target.getLatLng();
+                    const battalion = droppedBattalions.find(b => b.marker === event.target);
+                    if (battalion) {
+                        battalion.latLng = newLatLng;
+                        // Update popup with new position
+                        const updatedPopup = popupContent.replace(
+                            `Position: ${latLng.lat.toFixed(4)}, ${latLng.lng.toFixed(4)}`,
+                            `Position: ${newLatLng.lat.toFixed(4)}, ${newLatLng.lng.toFixed(4)}`
+                        );
+                        event.target.setPopupContent(updatedPopup);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error dropping battalion:', error);
+            }
+        });
+        
+        // Function to remove dropped battalion
+        window.removeDroppedBattalion = function(designation) {
+            const index = droppedBattalions.findIndex(b => b.designation === designation);
+            if (index !== -1) {
+                const battalion = droppedBattalions[index];
+                map.removeLayer(battalion.marker);
+                droppedBattalions.splice(index, 1);
+            }
+        };
+    </script>
+</body>
+</html>

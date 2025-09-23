@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiwan Military Brigade and Corps Headquarters Map - NATO Symbols</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #1a1a2e;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 70vh;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .legend.collapsed {
+            max-height: 60px;
+        }
+        
+        .legend-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .legend-header:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .legend-content {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(70vh - 60px);
+        }
+        
+        .legend.collapsed .legend-content {
+            display: none;
+        }
+        
+        .collapse-btn {
+            background: none;
+            border: none;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+        
+        .collapse-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .legend h3 {
+            margin: 0;
+            color: #333;
+            font-size: 16px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+        .legend-symbol {
+            width: 50px;
+            height: 35px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* NATO Symbol Styles */
+        .nato-symbol {
+            width: 60px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #87CEEB;
+            border: 2px solid #000;
+        }
+        
+        .nato-symbol-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .unit-size {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .unit-designation {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        .popup-content {
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 400px;
+        }
+        .popup-content h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .popup-content p {
+            margin: 5px 0;
+        }
+        .unit-structure {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .unit-structure h5 {
+            margin: 10px 0 5px 0;
+            color: #555;
+            font-size: 13px;
+        }
+        .unit-list {
+            margin-left: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        .unit-list li {
+            margin: 3px 0;
+        }
+        .map-controls {
+            position: absolute;
+            top: 80px;
+            left: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .map-controls button {
+            display: block;
+            width: 100%;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .map-controls button:hover {
+            background: #f0f0f0;
+        }
+        .map-controls button.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        /* Symbol Bank Styles */
+        .symbol-banks-container {
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        .symbol-bank {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+        }
+        
+        .symbol-bank.blue-forces {
+            border-left: 4px solid #4169E1;
+        }
+        
+        .symbol-bank.red-forces {
+            border-left: 4px solid #DC143C;
+        }
+        
+        .symbol-bank h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .symbol-bank.blue-forces h4 {
+            color: #4169E1;
+        }
+        
+        .symbol-bank.red-forces h4 {
+            color: #DC143C;
+        }
+        
+        .symbol-category {
+            margin-top: 10px;
+        }
+        
+        .symbol-category h5 {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .draggable-symbol {
+            cursor: move;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .draggable-symbol:hover {
+            border-color: #007bff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+        }
+        
+        .draggable-symbol.dragging {
+            opacity: 0.5;
+        }
+        
+        .draggable-symbol svg {
+            pointer-events: none;
+        }
+        
+        .draggable-symbol p {
+            margin: 5px 0 0 0;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .drag-preview {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0.8;
+        }
+        
+        /* Toggle button for symbol banks */
+        .symbol-banks-toggle {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1001;
+            background: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .symbol-banks-toggle:hover {
+            background: #0056b3;
+        }
+        
+        .symbol-panel.collapsed {
+            display: none;
+        }
+        
+        .symbol-banks-container.collapsed {
+            display: none;
+        }
+        
+        /* Tabbed Interface Styles */
+        .symbol-panel {
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+            z-index: 1000;
+            max-height: 70vh;
+        }
+        
+        .symbol-tabs {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .tab-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.7);
+            color: #666;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+        
+        .tab-button.active {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tab-button.blue.active {
+            border-bottom: 3px solid #4169E1;
+            color: #4169E1;
+        }
+        
+        .tab-button.red.active {
+            border-bottom: 3px solid #DC143C;
+            color: #DC143C;
+        }
+        
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 0 8px 8px 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: calc(70vh - 50px);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content .symbol-bank {
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+            margin: 0;
+        }
+        
+        /* Red threat overlay controls */
+        .threat-controls {
+            position: absolute;
+            top: 80px;
+            right: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .threat-controls label {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            gap: 5px;
+        }
+        
+        .threat-controls input[type="checkbox"] {
+            cursor: pointer;
+        }
+        
+        /* Coordinate display and input */
+        .coordinate-panel {
+            position: absolute;
+            top: 140px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+        }
+        
+        .coordinate-panel h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        .coordinate-display {
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 8px 0;
+            min-height: 20px;
+        }
+        
+        .coordinate-input {
+            display: flex;
+            gap: 5px;
+            margin: 8px 0;
+        }
+        
+        .coordinate-input input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .coordinate-input button {
+            padding: 5px 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .coordinate-input button:hover {
+            background: #0056b3;
+        }
+        
+        .selected-unit {
+            background: #e8f4ff;
+            padding: 8px;
+            border-radius: 4px;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+        
+        .coordinate-help {
+            font-size: 11px;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="legend" id="legend">
+        <div class="legend-header" onclick="toggleLegend()">
+            <h3>NATO Military Symbols</h3>
+            <button class="collapse-btn" id="legendCollapseBtn">▼</button>
+        </div>
+        <div class="legend-content">
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <svg width="50" height="35" viewBox="0 0 50 35">
+                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <text x="25" y="22" text-anchor="middle" font-size="14" font-weight="bold">HQ</text>
+                    </svg>
+                </div>
+                <span>Corps/Command HQ</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <svg width="50" height="35" viewBox="0 0 50 35">
+                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <line x1="8" y1="8" x2="42" y2="27" stroke="black" stroke-width="3"/>
+                        <line x1="8" y1="27" x2="42" y2="8" stroke="black" stroke-width="3"/>
+                        <ellipse cx="25" cy="19" rx="15" ry="8" fill="none" stroke="black" stroke-width="2.5"/>
+                    </svg>
+                </div>
+                <span>Mechanized Infantry</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <svg width="50" height="35" viewBox="0 0 50 35">
+                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <ellipse cx="25" cy="17.5" rx="16" ry="9" fill="none" stroke="black" stroke-width="3"/>
+                    </svg>
+                </div>
+                <span>Armored/Tank</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <svg width="50" height="35" viewBox="0 0 50 35">
+                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <line x1="8" y1="8" x2="42" y2="27" stroke="black" stroke-width="3"/>
+                        <line x1="8" y1="27" x2="42" y2="8" stroke="black" stroke-width="3"/>
+                    </svg>
+                </div>
+                <span>Infantry</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <svg width="50" height="35" viewBox="0 0 50 35">
+                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                        <circle cx="25" cy="17.5" r="4" fill="black"/>
+                    </svg>
+                </div>
+                <span>Artillery</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <svg width="50" height="35" viewBox="0 0 50 35">
+                        <path d="M 25 5 L 45 17.5 L 25 30 L 5 17.5 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                        <circle cx="25" cy="17.5" r="6" fill="none" stroke="black" stroke-width="1.5"/>
+                        <text x="25" y="21" text-anchor="middle" font-size="10" font-weight="bold">F</text>
+                    </svg>
+                </div>
+                <span>Fuel Depot (Red)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-symbol">
+                    <svg width="50" height="35" viewBox="0 0 50 35">
+                        <path d="M 25 5 L 45 17.5 L 25 30 L 5 17.5 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                        <path d="M 15 15 L 35 15 L 35 20 L 30 20 L 30 17 L 20 17 L 20 20 L 15 20 Z" fill="black"/>
+                    </svg>
+                </div>
+                <span>Port (Red)</span>
+            </div>
+            <div class="legend-item">
+                <span style="margin-left: 10px;"><strong>Unit Size Indicators:</strong></span>
+            </div>
+            <div class="legend-item">
+                <span style="margin-left: 20px;">II = Battalion | X = Brigade | XXX = Division/Corps</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="map-controls">
+        <button id="terrain-btn" class="active">Terrain</button>
+        <button id="satellite-btn">Satellite</button>
+        <button id="street-btn">Street Map</button>
+    </div>
+    
+    <div class="threat-controls">
+        <label>
+            <input type="checkbox" id="show-threat-zone" checked>
+            Show Red Threat Zone
+        </label>
+    </div>
+    
+    <div class="coordinate-panel">
+        <h4>Coordinate Tools</h4>
+        <div class="coordinate-display" id="coord-display">Click map for coordinates</div>
+        <div class="selected-unit" id="selected-unit" style="display:none;">
+            Selected: <span id="selected-name">None</span>
+        </div>
+        <div class="coordinate-input">
+            <input type="text" id="lat-input" placeholder="Latitude" />
+            <input type="text" id="lng-input" placeholder="Longitude" />
+            <button onclick="moveSelectedUnit()">Move Unit</button>
+        </div>
+        <div class="coordinate-help">
+            Click any unit to select it, then enter coordinates or click map to move
+        </div>
+    </div>
+    
+    <button class="symbol-banks-toggle" onclick="toggleSymbolPanel()">Toggle Symbol Panel</button>
+    
+    <div class="symbol-panel" id="symbolPanel">
+        <div class="symbol-tabs">
+            <button class="tab-button blue active" data-tab="blue" onclick="switchTab('blue')">Blue Forces</button>
+            <button class="tab-button red" data-tab="red" onclick="switchTab('red')">Red Forces</button>
+            <button class="tab-button all" data-tab="all" onclick="switchTab('all')">All Units</button>
+        </div>
+        
+        <!-- Blue Forces Tab Content -->
+        <div class="tab-content active" id="blue-tab">
+            <div class="symbol-bank blue-forces">
+                <h4>Blue Forces (Taiwan) - Drag to Deploy</h4>
+            
+            <div class="symbol-category">
+                <h5>Combat Units</h5>
+                <div class="symbol-grid">
+                    <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
+                            <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <line x1="8" y1="25" x2="52" y2="45" stroke="black" stroke-width="3"/>
+                            <line x1="8" y1="45" x2="52" y2="25" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Infantry Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="mech-infantry" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
+                            <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <line x1="8" y1="25" x2="52" y2="45" stroke="black" stroke-width="3"/>
+                            <line x1="8" y1="45" x2="52" y2="25" stroke="black" stroke-width="3"/>
+                            <ellipse cx="30" cy="37" rx="20" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                        </svg>
+                        <p>Mech Inf Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
+                            <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <ellipse cx="30" cy="35" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Tank Bn</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="symbol-category">
+                <h5>Support Units</h5>
+                <div class="symbol-grid">
+                    <div class="draggable-symbol" data-type="artillery" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="35" r="5" fill="black"/>
+                        </svg>
+                        <p>Artillery Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="recon" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <line x1="10" y1="35" x2="50" y2="35" stroke="black" stroke-width="2"/>
+                            <line x1="10" y1="30" x2="10" y2="40" stroke="black" stroke-width="2"/>
+                            <line x1="50" y1="30" x2="50" y2="40" stroke="black" stroke-width="2"/>
+                        </svg>
+                        <p>Recon Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="engineer" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <text x="30" y="40" text-anchor="middle" font-size="14" font-weight="bold">E</text>
+                        </svg>
+                        <p>Engineers Bn</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="symbol-category">
+                <h5>Specialized Units</h5>
+                <div class="symbol-grid">
+                    <div class="draggable-symbol" data-type="airborne" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <path d="M 30 28 Q 15 35 30 42 Q 45 35 30 28" fill="none" stroke="black" stroke-width="2.5"/>
+                            <line x1="22" y1="27" x2="38" y2="43" stroke="black" stroke-width="3"/>
+                            <line x1="22" y1="43" x2="38" y2="27" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Airborne Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="air-assault" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <line x1="30" y1="28" x2="30" y2="42" stroke="black" stroke-width="2"/>
+                            <line x1="18" y1="32" x2="42" y2="32" stroke="black" stroke-width="2"/>
+                            <line x1="22" y1="27" x2="38" y2="43" stroke="black" stroke-width="3"/>
+                            <line x1="22" y1="43" x2="38" y2="27" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Air Assault Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="shorad" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="35" r="6" fill="none" stroke="black" stroke-width="2"/>
+                            <line x1="20" y1="25" x2="40" y2="45" stroke="black" stroke-width="1.5"/>
+                            <line x1="40" y1="25" x2="20" y2="45" stroke="black" stroke-width="1.5"/>
+                            <polygon points="30,23 26,27 34,27" fill="black"/>
+                        </svg>
+                        <p>SHORAD Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="sp-arty" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="35" r="5" fill="black"/>
+                            <ellipse cx="30" cy="43" rx="15" ry="6" fill="none" stroke="black" stroke-width="2"/>
+                        </svg>
+                        <p>SP Arty Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="sof" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <path d="M 20 27 L 40 27 L 36 35 L 40 43 L 20 43 L 24 35 Z" fill="none" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="35" r="3" fill="black"/>
+                        </svg>
+                        <p>SOF Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="recon" data-size="battalion" data-force="blue">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <ellipse cx="30" cy="35" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                            <line x1="18" y1="35" x2="42" y2="35" stroke="black" stroke-width="2"/>
+                            <line x1="30" y1="28" x2="30" y2="42" stroke="black" stroke-width="2"/>
+                        </svg>
+                        <p>Recon Bn</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Red Forces Tab Content -->
+        <div class="tab-content" id="red-tab">
+        <div class="symbol-bank red-forces">
+            <h4>Red Forces (PLA) - Drag to Deploy</h4>
+            
+            <div class="symbol-category">
+                <h5>Combat Units</h5>
+                <div class="symbol-grid">
+                    <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
+                            <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
+                            <path d="M 30 10 L 55 30 L 30 50 L 5 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <line x1="13" y1="23" x2="47" y2="37" stroke="black" stroke-width="3"/>
+                            <line x1="13" y1="37" x2="47" y2="23" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Infantry Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="mech-infantry" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
+                            <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
+                            <path d="M 30 10 L 55 30 L 30 50 L 5 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <line x1="13" y1="23" x2="47" y2="37" stroke="black" stroke-width="3"/>
+                            <line x1="13" y1="37" x2="47" y2="23" stroke="black" stroke-width="3"/>
+                            <ellipse cx="30" cy="32" rx="20" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                        </svg>
+                        <p>Mech Inf Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
+                            <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
+                            <path d="M 30 10 L 55 30 L 30 50 L 5 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <ellipse cx="30" cy="30" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Tank Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="amphibious" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <ellipse cx="30" cy="30" rx="18" ry="10" fill="none" stroke="black" stroke-width="2"/>
+                            <line x1="18" y1="24" x2="42" y2="36" stroke="black" stroke-width="2"/>
+                            <line x1="18" y1="36" x2="42" y2="24" stroke="black" stroke-width="2"/>
+                        </svg>
+                        <p>Amphibious Bn</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="symbol-category">
+                <h5>Specialized Units</h5>
+                <div class="symbol-grid">
+                    <div class="draggable-symbol" data-type="airborne" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <path d="M 30 23 Q 15 30 30 37 Q 45 30 30 23" fill="none" stroke="black" stroke-width="2.5"/>
+                            <line x1="22" y1="22" x2="38" y2="38" stroke="black" stroke-width="3"/>
+                            <line x1="22" y1="38" x2="38" y2="22" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Airborne Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="air-assault" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <line x1="30" y1="23" x2="30" y2="37" stroke="black" stroke-width="2"/>
+                            <line x1="18" y1="27" x2="42" y2="27" stroke="black" stroke-width="2"/>
+                            <line x1="22" y1="22" x2="38" y2="38" stroke="black" stroke-width="3"/>
+                            <line x1="22" y1="38" x2="38" y2="22" stroke="black" stroke-width="3"/>
+                        </svg>
+                        <p>Air Assault Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="engineers" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <rect x="22" y="22" width="16" height="16" fill="none" stroke="black" stroke-width="2"/>
+                            <line x1="26" y1="26" x2="34" y2="34" stroke="black" stroke-width="2"/>
+                            <line x1="26" y1="34" x2="34" y2="26" stroke="black" stroke-width="2"/>
+                        </svg>
+                        <p>Engineers Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="recon" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <ellipse cx="30" cy="30" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                            <line x1="18" y1="30" x2="42" y2="30" stroke="black" stroke-width="2"/>
+                            <line x1="30" y1="23" x2="30" y2="37" stroke="black" stroke-width="2"/>
+                        </svg>
+                        <p>Recon Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="shorad" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="30" r="6" fill="none" stroke="black" stroke-width="2"/>
+                            <line x1="20" y1="20" x2="40" y2="40" stroke="black" stroke-width="1.5"/>
+                            <line x1="40" y1="20" x2="20" y2="40" stroke="black" stroke-width="1.5"/>
+                            <polygon points="30,18 26,22 34,22" fill="black"/>
+                        </svg>
+                        <p>SHORAD Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="sp-arty" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="30" r="5" fill="black"/>
+                            <ellipse cx="30" cy="38" rx="15" ry="6" fill="none" stroke="black" stroke-width="2"/>
+                        </svg>
+                        <p>SP Arty Bn</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="sof" data-size="battalion" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
+                            <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
+                            <path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <path d="M 20 22 L 40 22 L 36 30 L 40 38 L 20 38 L 24 30 Z" fill="none" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="30" r="3" fill="black"/>
+                        </svg>
+                        <p>SOF Bn</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="symbol-category">
+                <h5>Infrastructure Targets</h5>
+                <div class="symbol-grid">
+                    <div class="draggable-symbol" data-type="fuel-depot" data-size="installation" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <path d="M 30 5 L 58 25 L 30 45 L 2 25 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="25" r="8" fill="none" stroke="black" stroke-width="1.5"/>
+                            <text x="30" y="29" text-anchor="middle" font-size="12" font-weight="bold">F</text>
+                        </svg>
+                        <p>Fuel Depot</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="port" data-size="installation" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <path d="M 30 5 L 58 25 L 30 45 L 2 25 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <path d="M 20 20 L 40 20 L 40 28 L 35 28 L 35 24 L 25 24 L 25 28 L 20 28 Z" fill="black"/>
+                        </svg>
+                        <p>Port</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="airfield" data-size="installation" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <path d="M 30 5 L 58 25 L 30 45 L 2 25 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <line x1="20" y1="25" x2="40" y2="25" stroke="black" stroke-width="2"/>
+                            <line x1="30" y1="18" x2="30" y2="32" stroke="black" stroke-width="2"/>
+                            <circle cx="30" cy="25" r="3" fill="black"/>
+                        </svg>
+                        <p>Airfield</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="symbol-category">
+                <h5>Naval Assets</h5>
+                <div class="symbol-grid">
+                    <div class="draggable-symbol" data-type="jackup-barge" data-size="installation" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <path d="M 30 5 L 58 25 L 30 45 L 2 25 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <rect x="22" y="20" width="16" height="10" fill="none" stroke="black" stroke-width="1.5"/>
+                            <line x1="25" y1="30" x2="25" y2="35" stroke="black" stroke-width="1.5"/>
+                            <line x1="35" y1="30" x2="35" y2="35" stroke="black" stroke-width="1.5"/>
+                        </svg>
+                        <p>Jackup Barge</p>
+                    </div>
+                    <div class="draggable-symbol" data-type="floating-pier" data-size="installation" data-force="red">
+                        <svg width="60" height="50" viewBox="0 0 60 50">
+                            <path d="M 30 5 L 58 25 L 30 45 L 2 25 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
+                            <rect x="15" y="22" width="30" height="6" fill="none" stroke="black" stroke-width="1.5"/>
+                            <line x1="20" y1="22" x2="20" y2="28" stroke="black" stroke-width="1"/>
+                            <line x1="30" y1="22" x2="30" y2="28" stroke="black" stroke-width="1"/>
+                            <line x1="40" y1="22" x2="40" y2="28" stroke="black" stroke-width="1"/>
+                        </svg>
+                        <p>Floating Pier</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- All Units Tab Content -->
+        <div class="tab-content" id="all-tab">
+            <div class="symbol-bank blue-forces">
+                <h4>Blue Forces (Taiwan)</h4>
+                <div class="symbol-category">
+                    <div class="symbol-grid">
+                        <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="blue"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/><line x1="8" y1="25" x2="52" y2="45" stroke="black" stroke-width="3"/><line x1="8" y1="45" x2="52" y2="25" stroke="black" stroke-width="3"/></svg><p>Infantry</p></div>
+                        <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="blue"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/><ellipse cx="30" cy="35" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/></svg><p>Armor</p></div>
+                        <div class="draggable-symbol" data-type="artillery" data-size="battalion" data-force="blue"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/><line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/><rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/><circle cx="30" cy="35" r="5" fill="black"/></svg><p>Artillery</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="symbol-bank red-forces">
+                <h4>Red Forces (PLA)</h4>
+                <div class="symbol-category">
+                    <div class="symbol-grid">
+                        <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="red"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><path d="M 30 10 L 55 30 L 30 50 L 5 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/><line x1="13" y1="23" x2="47" y2="37" stroke="black" stroke-width="3"/><line x1="13" y1="37" x2="47" y2="23" stroke="black" stroke-width="3"/></svg><p>Infantry</p></div>
+                        <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="red"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><path d="M 30 10 L 55 30 L 30 50 L 5 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/><ellipse cx="30" cy="30" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/></svg><p>Armor</p></div>
+                        <div class="draggable-symbol" data-type="amphibious" data-size="battalion" data-force="red"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/><line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/><path d="M 30 10 L 60 30 L 30 50 L 0 30 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/><ellipse cx="30" cy="30" rx="18" ry="10" fill="none" stroke="black" stroke-width="2"/><line x1="18" y1="24" x2="42" y2="36" stroke="black" stroke-width="2"/><line x1="18" y1="36" x2="42" y2="24" stroke="black" stroke-width="2"/></svg><p>Amphibious</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize the map centered on Taiwan
+        const map = L.map('map', {
+            center: [23.8, 121],
+            zoom: 8,
+            maxZoom: 18,
+            minZoom: 6
+        });
+
+        // Create different tile layers
+        const terrainLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors, © OpenTopoMap',
+            maxZoom: 17
+        });
+
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '© Esri'
+        });
+
+        const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        });
+
+        // Add default layer
+        terrainLayer.addTo(map);
+        let currentLayer = terrainLayer;
+
+        // Layer switching
+        document.getElementById('terrain-btn').addEventListener('click', function() {
+            if (currentLayer !== terrainLayer) {
+                map.removeLayer(currentLayer);
+                terrainLayer.addTo(map);
+                currentLayer = terrainLayer;
+                document.querySelectorAll('.map-controls button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        document.getElementById('satellite-btn').addEventListener('click', function() {
+            if (currentLayer !== satelliteLayer) {
+                map.removeLayer(currentLayer);
+                satelliteLayer.addTo(map);
+                currentLayer = satelliteLayer;
+                document.querySelectorAll('.map-controls button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        document.getElementById('street-btn').addEventListener('click', function() {
+            if (currentLayer !== streetLayer) {
+                map.removeLayer(currentLayer);
+                streetLayer.addTo(map);
+                currentLayer = streetLayer;
+                document.querySelectorAll('.map-controls button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        // Toggle function for symbol panel
+        function toggleSymbolPanel() {
+            const panel = document.getElementById('symbolPanel');
+            panel.classList.toggle('collapsed');
+        }
+        
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+        
+        // Legend collapse functionality
+        function toggleLegend() {
+            const legend = document.getElementById('legend');
+            const btn = document.getElementById('legendCollapseBtn');
+            
+            legend.classList.toggle('collapsed');
+            btn.innerHTML = legend.classList.contains('collapsed') ? '▲' : '▼';
+        }
+
+        // Function to create NATO symbol SVG
+        function createNATOSymbol(type, size, designation, force = 'blue') {
+            let symbolContent = '';
+            let width = 60;
+            let height = 40;
+            let topOffset = 20;
+            let fillColor = force === 'red' ? '#FF6B6B' : '#87CEEB';
+            
+            // Size indicators
+            let sizeSymbol = '';
+            switch(size) {
+                case 'brigade': 
+                    sizeSymbol = `
+                        <line x1="${width/2 - 8}" y1="5" x2="${width/2 + 8}" y2="18" stroke="black" stroke-width="2.5"/>
+                        <line x1="${width/2 - 8}" y1="18" x2="${width/2 + 8}" y2="5" stroke="black" stroke-width="2.5"/>
+                    `;
+                    break;
+                case 'corps': 
+                    sizeSymbol = `
+                        <line x1="${width/2 - 20}" y1="5" x2="${width/2 - 10}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 20}" y1="15" x2="${width/2 - 10}" y2="5" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 5}" y1="5" x2="${width/2 + 5}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 5}" y1="15" x2="${width/2 + 5}" y2="5" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 + 10}" y1="5" x2="${width/2 + 20}" y2="15" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 + 10}" y1="15" x2="${width/2 + 20}" y2="5" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'battalion': 
+                    sizeSymbol = `
+                        <line x1="${width/2 - 6}" y1="3" x2="${width/2 - 6}" y2="17" stroke="black" stroke-width="3"/>
+                        <line x1="${width/2 + 6}" y1="3" x2="${width/2 + 6}" y2="17" stroke="black" stroke-width="3"/>
+                    `;
+                    break;
+                case 'installation':
+                    sizeSymbol = '';
+                    topOffset = 5;
+                    break;
+            }
+            
+            // Shape based on force type
+            let baseShape = '';
+            if (force === 'red') {
+                // Diamond shape for red forces - make it larger to fit symbols
+                const diamondWidth = width + 10;
+                const diamondHeight = height + 10;
+                const offsetAdjust = topOffset - 5;
+                baseShape = `<path d="M ${diamondWidth/2} ${offsetAdjust} L ${diamondWidth} ${offsetAdjust + diamondHeight/2} L ${diamondWidth/2} ${offsetAdjust + diamondHeight} L 0 ${offsetAdjust + diamondHeight/2} Z" fill="${fillColor}" stroke="black" stroke-width="2"/>`;
+                // Adjust width and height for symbol positioning
+                width = diamondWidth;
+                height = diamondHeight;
+                topOffset = offsetAdjust;
+            } else {
+                // Rectangle for blue forces
+                baseShape = `<rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="${fillColor}" stroke="black" stroke-width="2"/>`;
+            }
+            
+            // Create different symbols based on type
+            switch(type) {
+                case 'corps-hq':
+                    symbolContent = `
+                        ${baseShape}
+                        <text x="${width/2}" y="${topOffset + height/2 + 5}" text-anchor="middle" font-size="14" font-weight="bold">HQ</text>
+                    `;
+                    break;
+                case 'fuel-depot':
+                    symbolContent = `
+                        ${baseShape}
+                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="8" fill="none" stroke="black" stroke-width="1.5"/>
+                        <text x="${width/2}" y="${topOffset + height/2 + 4}" text-anchor="middle" font-size="12" font-weight="bold">F</text>
+                    `;
+                    break;
+                case 'port':
+                    symbolContent = `
+                        ${baseShape}
+                        <path d="M ${width/2 - 10} ${topOffset + height/2 - 5} L ${width/2 + 10} ${topOffset + height/2 - 5} L ${width/2 + 10} ${topOffset + height/2 + 3} L ${width/2 + 5} ${topOffset + height/2 + 3} L ${width/2 + 5} ${topOffset + height/2 - 1} L ${width/2 - 5} ${topOffset + height/2 - 1} L ${width/2 - 5} ${topOffset + height/2 + 3} L ${width/2 - 10} ${topOffset + height/2 + 3} Z" fill="black"/>
+                    `;
+                    break;
+                case 'airfield':
+                    symbolContent = `
+                        ${baseShape}
+                        <line x1="${width/2 - 10}" y1="${topOffset + height/2}" x2="${width/2 + 10}" y2="${topOffset + height/2}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2}" y1="${topOffset + height/2 - 7}" x2="${width/2}" y2="${topOffset + height/2 + 7}" stroke="black" stroke-width="2"/>
+                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="3" fill="black"/>
+                    `;
+                    break;
+                case 'jackup-barge':
+                    symbolContent = `
+                        ${baseShape}
+                        <rect x="${width/2 - 8}" y="${topOffset + height/2 - 5}" width="16" height="10" fill="none" stroke="black" stroke-width="1.5"/>
+                        <line x1="${width/2 - 5}" y1="${topOffset + height/2 + 5}" x2="${width/2 - 5}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
+                        <line x1="${width/2 + 5}" y1="${topOffset + height/2 + 5}" x2="${width/2 + 5}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
+                    `;
+                    break;
+                case 'floating-pier':
+                    symbolContent = `
+                        ${baseShape}
+                        <rect x="${width/2 - 15}" y="${topOffset + height/2 - 3}" width="30" height="6" fill="none" stroke="black" stroke-width="1.5"/>
+                        <line x1="${width/2 - 10}" y1="${topOffset + height/2 - 3}" x2="${width/2 - 10}" y2="${topOffset + height/2 + 3}" stroke="black" stroke-width="1"/>
+                        <line x1="${width/2}" y1="${topOffset + height/2 - 3}" x2="${width/2}" y2="${topOffset + height/2 + 3}" stroke="black" stroke-width="1"/>
+                        <line x1="${width/2 + 10}" y1="${topOffset + height/2 - 3}" x2="${width/2 + 10}" y2="${topOffset + height/2 + 3}" stroke="black" stroke-width="1"/>
+                    `;
+                    break;
+                case 'mech-infantry':
+                    symbolContent = `
+                        ${baseShape}
+                        <line x1="8" y1="${topOffset + 5}" x2="${width-8}" y2="${topOffset + height-5}" stroke="black" stroke-width="3"/>
+                        <line x1="8" y1="${topOffset + height-5}" x2="${width-8}" y2="${topOffset + 5}" stroke="black" stroke-width="3"/>
+                        <ellipse cx="${width/2}" cy="${topOffset + height/2 + 2}" rx="20" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                    `;
+                    break;
+                case 'armor':
+                    symbolContent = `
+                        ${baseShape}
+                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/>
+                    `;
+                    break;
+                case 'artillery':
+                    symbolContent = `
+                        ${baseShape}
+                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="5" fill="black"/>
+                    `;
+                    break;
+                case 'infantry':
+                    symbolContent = `
+                        ${baseShape}
+                        <line x1="8" y1="${topOffset + 5}" x2="${width-8}" y2="${topOffset + height-5}" stroke="black" stroke-width="3"/>
+                        <line x1="8" y1="${topOffset + height-5}" x2="${width-8}" y2="${topOffset + 5}" stroke="black" stroke-width="3"/>
+                    `;
+                    break;
+                case 'amphibious':
+                    symbolContent = `
+                        ${baseShape}
+                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 12}" y1="${topOffset + height/2 - 6}" x2="${width/2 + 12}" y2="${topOffset + height/2 + 6}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 12}" y1="${topOffset + height/2 + 6}" x2="${width/2 + 12}" y2="${topOffset + height/2 - 6}" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'airborne':
+                    symbolContent = `
+                        ${baseShape}
+                        <path d="M ${width/2} ${topOffset + 8} Q ${width/2 - 15} ${topOffset + height/2} ${width/2} ${topOffset + height - 8} Q ${width/2 + 15} ${topOffset + height/2} ${width/2} ${topOffset + 8}" fill="none" stroke="black" stroke-width="2.5"/>
+                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 - 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 + 8}" stroke="black" stroke-width="3"/>
+                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 + 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 - 8}" stroke="black" stroke-width="3"/>
+                    `;
+                    break;
+                case 'air-assault':
+                    symbolContent = `
+                        ${baseShape}
+                        <line x1="${width/2}" y1="${topOffset + 8}" x2="${width/2}" y2="${topOffset + height - 8}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 12}" y1="${topOffset + 12}" x2="${width/2 + 12}" y2="${topOffset + 12}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 - 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 + 8}" stroke="black" stroke-width="3"/>
+                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 + 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 - 8}" stroke="black" stroke-width="3"/>
+                    `;
+                    break;
+                case 'engineers':
+                    symbolContent = `
+                        ${baseShape}
+                        <rect x="${width/2 - 8}" y="${topOffset + height/2 - 8}" width="16" height="16" fill="none" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 4}" y1="${topOffset + height/2 - 4}" x2="${width/2 + 4}" y2="${topOffset + height/2 + 4}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 4}" y1="${topOffset + height/2 + 4}" x2="${width/2 + 4}" y2="${topOffset + height/2 - 4}" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'recon':
+                    symbolContent = `
+                        ${baseShape}
+                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
+                        <line x1="${width/2 - 12}" y1="${topOffset + height/2}" x2="${width/2 + 12}" y2="${topOffset + height/2}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2}" y1="${topOffset + height/2 - 7}" x2="${width/2}" y2="${topOffset + height/2 + 7}" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'shorad':
+                    symbolContent = `
+                        ${baseShape}
+                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="6" fill="none" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2 - 10}" y1="${topOffset + height/2 - 10}" x2="${width/2 + 10}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
+                        <line x1="${width/2 + 10}" y1="${topOffset + height/2 - 10}" x2="${width/2 - 10}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
+                        <polygon points="${width/2},${topOffset + height/2 - 12} ${width/2 - 4},${topOffset + height/2 - 8} ${width/2 + 4},${topOffset + height/2 - 8}" fill="black"/>
+                    `;
+                    break;
+                case 'sp-arty':
+                    symbolContent = `
+                        ${baseShape}
+                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="5" fill="black"/>
+                        <ellipse cx="${width/2}" cy="${topOffset + height/2 + 8}" rx="15" ry="6" fill="none" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                case 'sof':
+                    symbolContent = `
+                        ${baseShape}
+                        <path d="M ${width/2 - 10} ${topOffset + height/2 - 8} L ${width/2 + 10} ${topOffset + height/2 - 8} L ${width/2 + 6} ${topOffset + height/2} L ${width/2 + 10} ${topOffset + height/2 + 8} L ${width/2 - 10} ${topOffset + height/2 + 8} L ${width/2 - 6} ${topOffset + height/2} Z" fill="none" stroke="black" stroke-width="2"/>
+                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="3" fill="black"/>
+                    `;
+                    break;
+                case 'marine':
+                    symbolContent = `
+                        ${baseShape}
+                        <line x1="15" y1="${topOffset + height/2}" x2="${width-15}" y2="${topOffset + height/2}" stroke="black" stroke-width="2"/>
+                        <line x1="${width/2}" y1="${topOffset + 10}" x2="${width/2}" y2="${topOffset + height-10}" stroke="black" stroke-width="2"/>
+                        <path d="M 15 ${topOffset + height-10} Q ${width/2} ${topOffset + height-15} ${width-15} ${topOffset + height-10}" fill="none" stroke="black" stroke-width="2"/>
+                    `;
+                    break;
+                default:
+                    symbolContent = baseShape;
+            }
+            
+            return `
+                <svg width="${width}" height="${height + topOffset + 20}" xmlns="http://www.w3.org/2000/svg">
+                    ${sizeSymbol}
+                    ${symbolContent}
+                    ${designation ? `<text x="${width/2}" y="${topOffset + height + 15}" text-anchor="middle" font-size="11" font-weight="bold">${designation}</text>` : ''}
+                </svg>
+            `;
+        }
+
+        // Function to create custom NATO icon for Leaflet
+        function createNATOIcon(type, size, designation, force = 'blue') {
+            const svgString = createNATOSymbol(type, size, designation, force);
+            const iconUrl = 'data:image/svg+xml;base64,' + btoa(svgString);
+            
+            return L.icon({
+                iconUrl: iconUrl,
+                iconSize: [60, 80],
+                iconAnchor: [30, 40],
+                popupAnchor: [0, -40]
+            });
+        }
+
+        // Red amphibious assault force near 584th Armored Brigade position
+        const redUnits = [
+            // 16 Red amphibious battalions positioned for assault
+            {
+                name: "1st Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-1",
+                lat: 25.0776,
+                lng: 121.2330,
+                description: "Lead amphibious assault unit"
+            },
+            {
+                name: "2nd Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-2",
+                lat: 25.0926,
+                lng: 121.2480,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "3rd Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-3",
+                lat: 25.0626,
+                lng: 121.2180,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "4th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-4",
+                lat: 25.0876,
+                lng: 121.2180,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "5th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-5",
+                lat: 25.0626,
+                lng: 121.2480,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "6th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-6",
+                lat: 25.1026,
+                lng: 121.2330,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "7th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-7",
+                lat: 25.0526,
+                lng: 121.2330,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "8th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-8",
+                lat: 25.0776,
+                lng: 121.2030,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "9th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-9",
+                lat: 25.0776,
+                lng: 121.2630,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "10th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-10",
+                lat: 25.1126,
+                lng: 121.2180,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "11th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-11",
+                lat: 25.1126,
+                lng: 121.2480,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "12th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-12",
+                lat: 25.0426,
+                lng: 121.2180,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "13th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-13",
+                lat: 25.0426,
+                lng: 121.2480,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "14th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-14",
+                lat: 25.1076,
+                lng: 121.2030,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "15th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-15",
+                lat: 25.1076,
+                lng: 121.2630,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "16th Amphibious Assault Battalion",
+                type: "amphibious",
+                force: "red",
+                size: "battalion",
+                designation: "AB-16",
+                lat: 25.0476,
+                lng: 121.2330,
+                description: "Amphibious assault unit"
+            }
+        ];
+
+        // Initialize arrays for tracking units
+        let redMarkers = [];
+        let droppedUnits = [];
+        let unitCounter = 1;
+        
+        // Add Red units to map
+        redUnits.forEach(unit => {
+            const marker = L.marker([unit.lat, unit.lng], {
+                icon: createNATOIcon(unit.type, unit.size, unit.designation, unit.force)
+            });
+            
+            const popupContent = `
+                <div class="popup-content">
+                    <h4>${unit.name}</h4>
+                    <p>${unit.description}</p>
+                    <p><strong>Type:</strong> ${unit.type.replace('-', ' ').toUpperCase()}</p>
+                    <p><strong>Designation:</strong> ${unit.designation}</p>
+                    <p><strong>Position:</strong> ${unit.lat.toFixed(4)}, ${unit.lng.toFixed(4)}</p>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent);
+            redMarkers.push(marker);
+            marker.addTo(map);
+            makeMarkerSelectable(marker, unit);
+        });
+
+        // Initialize threat zone variable
+        let threatZone = null;
+        
+        // Calculate convex hull for threat zone
+        function convexHull(points) {
+            if (points.length < 3) return points;
+            
+            points.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+            
+            const cross = (O, A, B) => (A[0] - O[0]) * (B[1] - O[1]) - (A[1] - O[1]) * (B[0] - O[0]);
+            
+            const lower = [];
+            for (let i = 0; i < points.length; i++) {
+                while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], points[i]) <= 0) {
+                    lower.pop();
+                }
+                lower.push(points[i]);
+            }
+            
+            const upper = [];
+            for (let i = points.length - 1; i >= 0; i--) {
+                while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], points[i]) <= 0) {
+                    upper.pop();
+                }
+                upper.push(points[i]);
+            }
+            
+            upper.pop();
+            lower.pop();
+            return lower.concat(upper);
+        }
+        
+        // Function to create/update threat zone
+        function createThreatZone() {
+            // Remove existing threat zone if it exists
+            if (threatZone) {
+                map.removeLayer(threatZone);
+                threatZone = null;
+            }
+            
+            // Get all red unit positions (both pre-placed and user-dropped)
+            const allRedPositions = [
+                ...redUnits.map(u => [u.lat, u.lng]),
+                ...droppedUnits.filter(u => u.force === 'red').map(u => [u.latLng.lat, u.latLng.lng])
+            ];
+            
+            // Need at least 3 points to create a polygon
+            if (allRedPositions.length >= 3) {
+                const hullPoints = convexHull(allRedPositions);
+                
+                // Create the polygon
+                threatZone = L.polygon(hullPoints, {
+                    color: 'red',
+                    fillColor: '#ff6b6b',
+                    fillOpacity: 0.15,
+                    weight: 2,
+                    dashArray: '5, 10'
+                });
+                
+                // Add to map if checkbox is checked
+                if (document.getElementById('show-threat-zone').checked) {
+                    threatZone.addTo(map);
+                }
+            }
+        }
+        
+        // Create initial threat zone
+        createThreatZone();
+        
+        // Toggle threat zone visibility
+        document.getElementById('show-threat-zone').addEventListener('change', function() {
+            if (this.checked) {
+                createThreatZone();
+            } else {
+                if (threatZone) {
+                    map.removeLayer(threatZone);
+                }
+            }
+        });
+
+        // Define military unit locations (Blue Forces)
+        const militaryUnits = [
+            // 6th Army Corps (Northern Taiwan)
+            {
+                name: "6th Army Corps Command",
+                natoType: "corps-hq",
+                size: "corps",
+                designation: "6",
+                lat: 25.0375,
+                lng: 121.5645,
+                description: "Northern Taiwan Command<br>Chien-Feng Force (前鋒部隊)",
+                subordinates: {
+                    "Direct Units": [
+                        "53rd Engineer Group",
+                        "73rd Signal Group", 
+                        "33rd Chemical Warfare Group",
+                        "3rd Area Logistics Support Command"
+                    ],
+                    "Combat Brigades": [
+                        "269th Mechanized Infantry Brigade",
+                        "542nd Armored Brigade",
+                        "584th Armored Brigade",
+                        "21st Artillery Command"
+                    ]
+                }
+            },
+            {
+                name: "269th Mechanized Infantry Brigade",
+                natoType: "mech-infantry",
+                size: "brigade",
+                designation: "269",
+                lat: 24.9936,
+                lng: 121.3018,
+                description: "Based in Taoyuan<br>CM-33 Clouded Leopard equipped"
+            },
+            {
+                name: "542nd Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "542",
+                lat: 24.8138,
+                lng: 120.9675,
+                description: "Based in Hsinchu<br>M1A2 Abrams training unit"
+            },
+            {
+
+                name: "584th Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "584",
+                lat: 25.0776,
+                lng: 121.2330,
+                description: "Northern armored unit<br>Combined Arms Brigade"
+            },
+            {
+                name: "21st Artillery Command",
+                natoType: "artillery",
+                size: "brigade",
+                designation: "21",
+                lat: 25.1276,
+                lng: 121.4430,
+                description: "6th Corps Artillery Support"
+            },
+            {
+                name: "Guandu Area Command",
+                natoType: "area-command",
+                size: "brigade",
+                designation: "GDU",
+                lat: 25.1245,
+                lng: 121.4674,
+                description: "Former 26th Infantry Division<br>Guandu District, Taipei"
+            },
+            {
+                name: "Lanyang Area Command",
+                natoType: "area-command",
+                size: "brigade",
+                designation: "LY",
+                lat: 24.7021,
+                lng: 121.7377,
+                description: "Former 51st Infantry Division<br>Yilan area defense"
+            },
+
+            // 8th Army Corps (Southern Taiwan)
+            {
+                name: "8th Army Corps Command",
+                natoType: "corps-hq",
+                size: "corps",
+                designation: "8",
+                lat: 22.6273,
+                lng: 120.3014,
+                description: "Southern Taiwan Command<br>Gan-Cheng Force (干城部隊)<br>Based in Kaohsiung"
+            },
+            {
+                name: "333rd Mechanized Infantry Brigade",
+                natoType: "mech-infantry",
+                size: "brigade",
+                designation: "333",
+                lat: 22.5676,
+                lng: 120.3493,
+                description: "Based in Kaohsiung Fengshan<br>Rapid response unit"
+            },
+            {
+                name: "564th Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "564",
+                lat: 22.9998,
+                lng: 120.2268,
+                description: "Southern armored unit<br>Based in Tainan area"
+            },
+            {
+                name: "43rd Artillery Command",
+                natoType: "artillery",
+                size: "brigade",
+                designation: "43",
+                lat: 22.6873,
+                lng: 120.4914,
+                description: "8th Corps Artillery Support"
+            },
+
+            // 10th Army Corps (Central Taiwan)
+            {
+                name: "10th Army Corps Command",
+                natoType: "corps-hq",
+                size: "corps",
+                designation: "10",
+                lat: 24.2548,
+                lng: 120.7209,
+                description: "Central Taiwan Command<br>Kunlun Force (崑崙部隊)<br>Based in Taichung Xinshe"
+            },
+            {
+                name: "234th Mechanized Infantry Brigade",
+                natoType: "mech-infantry",
+                size: "brigade",
+                designation: "234",
+                lat: 24.1469,
+                lng: 120.6739,
+                description: "CM-32 Clouded Leopard equipped"
+            },
+            {
+                name: "586th Armored Brigade",
+                natoType: "armor",
+                size: "brigade",
+                designation: "586",
+                lat: 24.0847,
+                lng: 120.5401,
+                description: "Central armored unit<br>Combined Arms Brigade"
+            },
+            {
+                name: "58th Artillery Command",
+                natoType: "artillery",
+                size: "brigade",
+                designation: "58",
+                lat: 24.2048,
+                lng: 120.6209,
+                description: "10th Corps Artillery Support"
+            },
+
+            // Defense Commands
+            {
+                name: "Kinmen Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "KM",
+                lat: 24.4493,
+                lng: 118.3285,
+                description: "Kinmen Island defense<br>Taiwu Force (太武部隊)<br>First line of defense"
+            },
+            {
+                name: "Matsu Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "MT",
+                lat: 26.1605,
+                lng: 119.9545,
+                description: "Matsu Islands defense<br>Yuntai Force (雲台部隊)"
+            },
+            {
+                name: "Penghu Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "PH",
+                lat: 23.5711,
+                lng: 119.5793,
+                description: "Penghu Islands defense<br>Zhenhai Force (鎮海部隊)"
+            },
+            {
+                name: "Huadong Defense Command",
+                natoType: "infantry",
+                size: "brigade",
+                designation: "HD",
+                lat: 23.9871,
+                lng: 121.6011,
+                description: "Eastern Taiwan defense<br>Based in Hualien"
+            },
+            {
+                name: "Dongyin Area Command",
+                natoType: "infantry",
+                size: "battalion",
+                designation: "DY",
+                lat: 26.3608,
+                lng: 120.4900,
+                description: "Dongyin Island defense<br>Loyalty Force (忠義部隊)"
+            },
+
+            // Special Forces and Aviation
+            {
+                name: "Aviation & Special Forces Command",
+                natoType: "aviation",
+                size: "brigade",
+                designation: "ASFC",
+                lat: 24.8597,
+                lng: 121.2216,
+                description: "Based in Taoyuan Longtan<br>Wo-Han Force (臥虎部隊)"
+            },
+            {
+                name: "862nd Special Warfare Brigade",
+                natoType: "special-forces",
+                size: "brigade",
+                designation: "862",
+                lat: 24.8397,
+                lng: 121.2016,
+                description: "Special Operations Force"
+            },
+            {
+                name: "Airborne Special Service Company",
+                natoType: "special-forces",
+                size: "company",
+                designation: "ASSC",
+                lat: 22.6729,
+                lng: 120.4881,
+                description: "Elite Counter-Terrorism Unit<br>Based in Pingtung<br>涼山特勤隊"
+            },
+
+            // Marine Corps
+            {
+                name: "Marine Corps Command",
+                natoType: "marine",
+                size: "brigade",
+                designation: "MC",
+                lat: 22.6819,
+                lng: 120.2925,
+                description: "Naval Infantry Command<br>Based in Kaohsiung Zuoying"
+            },
+            {
+                name: "66th Marine Brigade",
+                natoType: "marine",
+                size: "brigade",
+                designation: "66",
+                lat: 22.6719,
+                lng: 120.2825,
+                description: "Amphibious assault unit"
+            },
+            {
+                name: "99th Marine Brigade",
+                natoType: "marine",
+                size: "brigade",
+                designation: "99",
+                lat: 22.6919,
+                lng: 120.3025,
+                description: "Amphibious operations"
+            },
+
+            // Reserve Commands
+            {
+                name: "Northern Reserve Command",
+                natoType: "reserve",
+                size: "brigade",
+                designation: "NRC",
+                lat: 25.0630,
+                lng: 121.5230,
+                description: "Northern Taiwan reserves"
+            },
+            {
+                name: "Central Reserve Command",
+                natoType: "reserve",
+                size: "brigade",
+                designation: "CRC",
+                lat: 24.1477,
+                lng: 120.6746,
+                description: "Central Taiwan reserves"
+            },
+            {
+                name: "Southern Reserve Command",
+                natoType: "reserve",
+                size: "brigade",
+                designation: "SRC",
+                lat: 22.6273,
+                lng: 120.3014,
+                description: "Southern Taiwan reserves"
+            },
+
+            // Northern Defense Battalions - Opposing Red Amphibious Forces
+            {
+                name: "1st Northern Defense Infantry Battalion",
+                natoType: "infantry",
+                size: "battalion",
+                designation: "ND-1",
+                lat: 25.1276,
+                lng: 121.1830,
+                description: "Forward defense position"
+            },
+            {
+                name: "2nd Northern Defense Infantry Battalion",
+                natoType: "infantry",
+                size: "battalion",
+                designation: "ND-2",
+                lat: 25.1376,
+                lng: 121.2630,
+                description: "Forward defense position"
+            },
+            {
+                name: "3rd Northern Defense Mechanized Battalion",
+                natoType: "mech-infantry",
+                size: "battalion",
+                designation: "ND-3",
+                lat: 25.1176,
+                lng: 121.2130,
+                description: "Mobile defense unit"
+            },
+            {
+                name: "4th Northern Defense Mechanized Battalion",
+                natoType: "mech-infantry",
+                size: "battalion",
+                designation: "ND-4",
+                lat: 25.1476,
+                lng: 121.2430,
+                description: "Mobile defense unit"
+            },
+            {
+                name: "5th Northern Defense Artillery Battalion",
+                natoType: "artillery",
+                size: "battalion",
+                designation: "ND-5",
+                lat: 25.1576,
+                lng: 121.2030,
+                description: "Fire support unit"
+            },
+            {
+                name: "6th Northern Defense Artillery Battalion",
+                natoType: "artillery",
+                size: "battalion",
+                designation: "ND-6",
+                lat: 25.1376,
+                lng: 121.1930,
+                description: "Fire support unit"
+            },
+            {
+                name: "7th Northern Defense SHORAD Battalion",
+                natoType: "shorad",
+                size: "battalion",
+                designation: "ND-7",
+                lat: 25.1676,
+                lng: 121.2330,
+                description: "Air defense unit"
+            },
+            {
+                name: "8th Northern Defense Anti-Tank Battalion",
+                natoType: "infantry",
+                size: "battalion",
+                designation: "ND-8",
+                lat: 25.1276,
+                lng: 121.2730,
+                description: "Anti-armor defense"
+            },
+            {
+                name: "9th Northern Defense Engineers Battalion",
+                natoType: "engineers",
+                size: "battalion",
+                designation: "ND-9",
+                lat: 25.1776,
+                lng: 121.2130,
+                description: "Obstacle and fortification unit"
+            },
+            {
+                name: "10th Northern Defense Recon Battalion",
+                natoType: "recon",
+                size: "battalion",
+                designation: "ND-10",
+                lat: 25.1076,
+                lng: 121.1730,
+                description: "Intelligence and surveillance"
+            }
+        ];
+
+        // Function to format subordinate units for popup
+        function formatSubordinates(subordinates) {
+            if (!subordinates) return '';
+            
+            let html = '<div class="unit-structure">';
+            for (const [category, units] of Object.entries(subordinates)) {
+                html += `<h5>${category}:</h5>`;
+                html += '<ul class="unit-list">';
+                units.forEach(unit => {
+                    html += `<li>${unit}</li>`;
+                });
+                html += '</ul>';
+            }
+            html += '</div>';
+            return html;
+        }
+
+        // Add blue force markers to the map
+        militaryUnits.forEach(unit => {
+            const marker = L.marker([unit.lat, unit.lng], {
+                icon: createNATOIcon(unit.natoType, unit.size, unit.designation, 'blue')
+            }).addTo(map);
+            
+            const popupContent = `
+                <div class="popup-content">
+                    <h4>${unit.name}</h4>
+                    <p>${unit.description}</p>
+                    <p><strong>Position:</strong> ${unit.lat.toFixed(4)}, ${unit.lng.toFixed(4)}</p>
+                    ${formatSubordinates(unit.subordinates)}
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent);
+            makeMarkerSelectable(marker, unit);
+        });
+
+        // Add a title overlay
+        const info = L.control({position: 'topleft'});
+        info.onAdd = function() {
+            const div = L.DomUtil.create('div', 'info');
+            div.innerHTML = `
+                <div style="background: rgba(255,255,255,0.95); padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    <h2 style="margin: 0 0 10px 0; color: #333;">Taiwan Defense Analysis</h2>
+                    <p style="margin: 0; color: #666; font-size: 14px;">Blue: Taiwan Forces | Red: PLA Forces</p>
+                    <p style="margin: 5px 0 0 0; color: #888; font-size: 12px;">Click units for details • Drag from banks to deploy</p>
+                </div>
+            `;
+            return div;
+        };
+        info.addTo(map);
+        
+        // Drag and Drop functionality
+        let draggedElement = null;
+        let dragPreview = null;
+        
+        // Add drag listeners to all draggable symbols
+        document.querySelectorAll('.draggable-symbol').forEach(symbol => {
+            symbol.draggable = true;
+            
+            symbol.addEventListener('dragstart', (e) => {
+                draggedElement = e.target;
+                e.target.classList.add('dragging');
+                
+                // Create preview element
+                dragPreview = document.createElement('div');
+                dragPreview.className = 'drag-preview';
+                dragPreview.innerHTML = e.target.innerHTML;
+                document.body.appendChild(dragPreview);
+                
+                // Store the data
+                e.dataTransfer.effectAllowed = 'copy';
+                e.dataTransfer.setData('text/plain', JSON.stringify({
+                    type: e.target.dataset.type,
+                    size: e.target.dataset.size,
+                    force: e.target.dataset.force
+                }));
+                
+                // Hide default drag image
+                const emptyImg = new Image();
+                e.dataTransfer.setDragImage(emptyImg, 0, 0);
+            });
+            
+            symbol.addEventListener('dragend', (e) => {
+                e.target.classList.remove('dragging');
+                if (dragPreview) {
+                    document.body.removeChild(dragPreview);
+                    dragPreview = null;
+                }
+                draggedElement = null;
+            });
+        });
+        
+        // Update preview position during drag
+        document.addEventListener('dragover', (e) => {
+            if (dragPreview) {
+                dragPreview.style.left = (e.clientX - 30) + 'px';
+                dragPreview.style.top = (e.clientY - 25) + 'px';
+            }
+        });
+        
+        // Handle drop on map
+        const mapContainer = document.getElementById('map');
+        
+        mapContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        });
+        
+        mapContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            
+            if (!draggedElement) return;
+            
+            try {
+                const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+                
+                // Convert screen coordinates to map coordinates
+                const containerPoint = L.point(e.clientX, e.clientY);
+                const latLng = map.containerPointToLatLng(containerPoint);
+                
+                // Generate a unique designation
+                const prefix = data.force === 'red' ? 'R' : 'B';
+                const designation = `${prefix}-${unitCounter++}`;
+                
+                // Create and add the marker
+                const marker = L.marker([latLng.lat, latLng.lng], {
+                    icon: createNATOIcon(data.type, data.size, designation, data.force),
+                    draggable: true
+                }).addTo(map);
+                
+                // Create popup content
+                const unitName = `${data.force === 'red' ? 'Red' : 'Blue'} ${data.type.replace('-', ' ')} Unit`;
+                
+                const popupContent = `
+                    <div class="popup-content">
+                        <h4>${unitName}</h4>
+                        <p>Designation: ${designation}</p>
+                        <p>Position: ${latLng.lat.toFixed(4)}, ${latLng.lng.toFixed(4)}</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #666;">
+                            User-deployed unit<br>
+                            Drag to reposition
+                        </p>
+                        <button onclick="removeDroppedUnit('${designation}')" style="margin-top: 10px; padding: 5px 10px; background: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                            Remove Unit
+                        </button>
+                    </div>
+                `;
+                
+                marker.bindPopup(popupContent);
+                
+                // Store reference
+                const droppedUnit = {
+                    designation: designation,
+                    marker: marker,
+                    type: data.type,
+                    force: data.force,
+                    latLng: latLng,
+                    name: unitName
+                };
+                droppedUnits.push(droppedUnit);
+                
+                // Make the dropped unit selectable
+                makeMarkerSelectable(marker, droppedUnit);
+                
+                // Update threat zone if it's a red unit
+                if (data.force === 'red') {
+                    updateThreatZone();
+                }
+                
+            } catch (error) {
+                console.error('Error dropping unit:', error);
+            }
+        });
+        
+        // Function to remove dropped unit
+        window.removeDroppedUnit = function(designation) {
+            const index = droppedUnits.findIndex(u => u.designation === designation);
+            if (index !== -1) {
+                const unit = droppedUnits[index];
+                map.removeLayer(unit.marker);
+                droppedUnits.splice(index, 1);
+                
+                if (unit.force === 'red') {
+                    updateThreatZone();
+                }
+            }
+        };
+        
+        // Function to update threat zone (calls createThreatZone)
+        function updateThreatZone() {
+            createThreatZone();
+        }
+        
+        // Coordinate tracking and unit selection
+        let selectedUnit = null;
+        let selectedMarker = null;
+        
+        // Add click event to map for coordinate display
+        map.on('click', function(e) {
+            const lat = e.latlng.lat.toFixed(4);
+            const lng = e.latlng.lng.toFixed(4);
+            document.getElementById('coord-display').innerHTML = `Lat: ${lat}, Lng: ${lng}`;
+            document.getElementById('lat-input').value = lat;
+            document.getElementById('lng-input').value = lng;
+            
+            // If a unit is selected and we clicked on the map, offer to move it
+            if (selectedUnit && selectedMarker) {
+                if (confirm(`Move ${selectedUnit.name || selectedUnit.designation} to ${lat}, ${lng}?`)) {
+                    moveSelectedUnit();
+                }
+            }
+        });
+        
+        // Function to select a unit
+        function selectUnit(unit, marker) {
+            selectedUnit = unit;
+            selectedMarker = marker;
+            document.getElementById('selected-unit').style.display = 'block';
+            document.getElementById('selected-name').textContent = unit.name || unit.designation || 'Unknown Unit';
+            
+            // Fill in current coordinates
+            const latLng = marker.getLatLng();
+            document.getElementById('lat-input').value = latLng.lat.toFixed(4);
+            document.getElementById('lng-input').value = latLng.lng.toFixed(4);
+            
+            // Highlight the selected marker
+            marker.setZIndexOffset(1000);
+        }
+        
+        // Function to move selected unit
+        window.moveSelectedUnit = function() {
+            if (!selectedUnit || !selectedMarker) {
+                alert('Please select a unit first by clicking on it');
+                return;
+            }
+            
+            const lat = parseFloat(document.getElementById('lat-input').value);
+            const lng = parseFloat(document.getElementById('lng-input').value);
+            
+            if (isNaN(lat) || isNaN(lng)) {
+                alert('Please enter valid coordinates');
+                return;
+            }
+            
+            // Move the marker
+            selectedMarker.setLatLng([lat, lng]);
+            
+            // Update unit data
+            if (selectedUnit) {
+                selectedUnit.lat = lat;
+                selectedUnit.lng = lng;
+                
+                // Update dropped units array if it's a dropped unit
+                const droppedUnit = droppedUnits.find(u => u.marker === selectedMarker);
+                if (droppedUnit) {
+                    droppedUnit.latLng = L.latLng(lat, lng);
+                }
+                
+                // Update threat zone if it's a red unit
+                if (selectedUnit.force === 'red' || (droppedUnit && droppedUnit.force === 'red')) {
+                    updateThreatZone();
+                }
+            }
+            
+            // Update coordinate display
+            document.getElementById('coord-display').innerHTML = `Moved to: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+        };
+        
+        // Make all existing markers selectable
+        function makeMarkerSelectable(marker, unit) {
+            marker.on('click', function(e) {
+                L.DomEvent.stopPropagation(e);
+                selectUnit(unit, marker);
+            });
+        }
+    </script>
+</body>
+</html>
