@@ -13,158 +13,114 @@
             font-family: 'Arial', sans-serif;
             background: #1a1a2e;
         }
+
         #map {
-            height: 100vh;
             width: 100%;
+            height: 100vh;
         }
+
         .legend {
             position: absolute;
             bottom: 30px;
             right: 30px;
             background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             max-height: 70vh;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            overflow-y: auto;
         }
-        
-        .legend.collapsed {
-            max-height: 60px;
-        }
-        
+
         .legend-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 20px;
-            border-bottom: 1px solid #ddd;
+            gap: 12px;
             cursor: pointer;
-            user-select: none;
         }
-        
-        .legend-header:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-        
-        .legend-content {
-            padding: 20px;
-            overflow-y: auto;
-            max-height: calc(70vh - 60px);
-        }
-        
-        .legend.collapsed .legend-content {
-            display: none;
-        }
-        
-        .collapse-btn {
-            background: none;
-            border: none;
-            font-size: 12px;
-            cursor: pointer;
-            padding: 2px 6px;
-            border-radius: 3px;
-            transition: background 0.2s;
-        }
-        
-        .collapse-btn:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
+
         .legend h3 {
             margin: 0;
             color: #333;
             font-size: 16px;
         }
+
+        .legend-content {
+            margin-top: 12px;
+        }
+
+        .legend.collapsed .legend-content {
+            display: none;
+        }
+
+        .collapse-btn {
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 2px 6px;
+        }
+
+        .collapse-btn:focus {
+            outline: none;
+        }
+
         .legend-item {
             display: flex;
             align-items: center;
             margin: 10px 0;
             font-size: 13px;
         }
+
         .legend-symbol {
-            width: 50px;
-            height: 35px;
+            width: 70px;
+            height: 70px;
             margin-right: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
-        /* NATO Symbol Styles */
-        .nato-symbol {
-            width: 60px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: #87CEEB;
-            border: 2px solid #000;
-        }
-        
-        .nato-symbol-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-        }
-        
-        .unit-size {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 16px;
-            font-weight: bold;
-        }
-        
-        .unit-designation {
-            position: absolute;
-            bottom: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        
+
         .popup-content {
             font-size: 14px;
             line-height: 1.5;
             max-width: 400px;
         }
+
         .popup-content h4 {
             margin: 0 0 10px 0;
             color: #333;
             border-bottom: 2px solid #007bff;
             padding-bottom: 5px;
         }
+
         .popup-content p {
             margin: 5px 0;
         }
+
         .unit-structure {
             margin-top: 15px;
             padding-top: 10px;
             border-top: 1px solid #ddd;
         }
+
         .unit-structure h5 {
             margin: 10px 0 5px 0;
             color: #555;
             font-size: 13px;
         }
+
         .unit-list {
             margin-left: 10px;
             font-size: 12px;
             color: #666;
         }
+
         .unit-list li {
             margin: 3px 0;
         }
+
         .map-controls {
             position: absolute;
             top: 80px;
@@ -175,6 +131,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+
         .map-controls button {
             display: block;
             width: 100%;
@@ -185,15 +142,16 @@
             cursor: pointer;
             border-radius: 3px;
         }
+
         .map-controls button:hover {
             background: #f0f0f0;
         }
+
         .map-controls button.active {
             background: #007bff;
             color: white;
         }
-        
-        /* Symbol Bank Styles */
+
         .symbol-banks-container {
             position: absolute;
             bottom: 30px;
@@ -205,7 +163,7 @@
             overflow-y: auto;
             z-index: 1000;
         }
-        
+
         .symbol-bank {
             background: rgba(255, 255, 255, 0.95);
             padding: 15px;
@@ -213,15 +171,15 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             max-width: 350px;
         }
-        
+
         .symbol-bank.blue-forces {
             border-left: 4px solid #4169E1;
         }
-        
+
         .symbol-bank.red-forces {
             border-left: 4px solid #DC143C;
         }
-        
+
         .symbol-bank h4 {
             margin: 0 0 10px 0;
             color: #333;
@@ -229,33 +187,33 @@
             border-bottom: 1px solid #ddd;
             padding-bottom: 5px;
         }
-        
+
         .symbol-bank.blue-forces h4 {
             color: #4169E1;
         }
-        
+
         .symbol-bank.red-forces h4 {
             color: #DC143C;
         }
-        
+
         .symbol-category {
             margin-top: 10px;
         }
-        
+
         .symbol-category h5 {
             margin: 5px 0;
             font-size: 12px;
             color: #666;
             font-weight: 600;
         }
-        
+
         .symbol-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
             margin-top: 8px;
         }
-        
+
         .draggable-symbol {
             cursor: move;
             background: white;
@@ -265,35 +223,34 @@
             text-align: center;
             transition: all 0.2s;
         }
-        
+
         .draggable-symbol:hover {
             border-color: #007bff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             transform: scale(1.05);
         }
-        
+
         .draggable-symbol.dragging {
             opacity: 0.5;
         }
-        
+
         .draggable-symbol svg {
             pointer-events: none;
         }
-        
+
         .draggable-symbol p {
             margin: 5px 0 0 0;
             font-size: 10px;
             color: #666;
         }
-        
+
         .drag-preview {
             position: fixed;
             pointer-events: none;
             z-index: 10000;
             opacity: 0.8;
         }
-        
-        /* Toggle button for symbol banks */
+
         .symbol-banks-toggle {
             position: absolute;
             bottom: 10px;
@@ -308,20 +265,11 @@
             font-size: 12px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        
+
         .symbol-banks-toggle:hover {
             background: #0056b3;
         }
-        
-        .symbol-panel.collapsed {
-            display: none;
-        }
-        
-        .symbol-banks-container.collapsed {
-            display: none;
-        }
-        
-        /* Tabbed Interface Styles */
+
         .symbol-panel {
             position: absolute;
             bottom: 30px;
@@ -329,13 +277,21 @@
             z-index: 1000;
             max-height: 70vh;
         }
-        
+
+        .symbol-panel.collapsed {
+            display: none;
+        }
+
+        .symbol-banks-container.collapsed {
+            display: none;
+        }
+
         .symbol-tabs {
             display: flex;
             gap: 2px;
             margin-bottom: 10px;
         }
-        
+
         .tab-button {
             padding: 8px 16px;
             border: none;
@@ -348,28 +304,28 @@
             color: #666;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .tab-button:hover {
             background: rgba(255, 255, 255, 0.9);
             transform: translateY(-1px);
         }
-        
+
         .tab-button.active {
             background: rgba(255, 255, 255, 0.95);
             color: #333;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
         }
-        
+
         .tab-button.blue.active {
             border-bottom: 3px solid #4169E1;
             color: #4169E1;
         }
-        
+
         .tab-button.red.active {
             border-bottom: 3px solid #DC143C;
             color: #DC143C;
         }
-        
+
         .tab-content {
             display: none;
             background: rgba(255, 255, 255, 0.95);
@@ -378,19 +334,18 @@
             overflow-y: auto;
             max-height: calc(70vh - 50px);
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         .tab-content .symbol-bank {
             background: none;
             box-shadow: none;
             border-radius: 0;
             margin: 0;
         }
-        
-        /* Red threat overlay controls */
+
         .threat-controls {
             position: absolute;
             top: 80px;
@@ -401,19 +356,18 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        
+
         .threat-controls label {
             display: flex;
             align-items: center;
             font-size: 13px;
             gap: 5px;
         }
-        
+
         .threat-controls input[type="checkbox"] {
             cursor: pointer;
         }
-        
-        /* Coordinate display and input */
+
         .coordinate-panel {
             position: absolute;
             top: 140px;
@@ -425,7 +379,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             min-width: 250px;
         }
-        
+
         .coordinate-panel h4 {
             margin: 0 0 10px 0;
             color: #333;
@@ -433,7 +387,7 @@
             border-bottom: 1px solid #ddd;
             padding-bottom: 5px;
         }
-        
+
         .coordinate-display {
             background: #f5f5f5;
             padding: 8px;
@@ -443,13 +397,13 @@
             margin: 8px 0;
             min-height: 20px;
         }
-        
+
         .coordinate-input {
             display: flex;
             gap: 5px;
             margin: 8px 0;
         }
-        
+
         .coordinate-input input {
             flex: 1;
             padding: 5px;
@@ -457,7 +411,7 @@
             border-radius: 3px;
             font-size: 12px;
         }
-        
+
         .coordinate-input button {
             padding: 5px 10px;
             background: #007bff;
@@ -467,11 +421,11 @@
             cursor: pointer;
             font-size: 12px;
         }
-        
+
         .coordinate-input button:hover {
             background: #0056b3;
         }
-        
+
         .selected-unit {
             background: #e8f4ff;
             padding: 8px;
@@ -479,7 +433,7 @@
             margin: 8px 0;
             font-size: 12px;
         }
-        
+
         .coordinate-help {
             font-size: 11px;
             color: #666;
@@ -495,81 +449,7 @@
             <h3>NATO Military Symbols</h3>
             <button class="collapse-btn" id="legendCollapseBtn">▼</button>
         </div>
-        <div class="legend-content">
-            <div class="legend-item">
-                <div class="legend-symbol">
-                    <svg width="50" height="35" viewBox="0 0 50 35">
-                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
-                        <text x="25" y="22" text-anchor="middle" font-size="14" font-weight="bold">HQ</text>
-                    </svg>
-                </div>
-                <span>Corps/Command HQ</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-symbol">
-                    <svg width="50" height="35" viewBox="0 0 50 35">
-                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
-                        <line x1="8" y1="8" x2="42" y2="27" stroke="black" stroke-width="3"/>
-                        <line x1="8" y1="27" x2="42" y2="8" stroke="black" stroke-width="3"/>
-                        <ellipse cx="25" cy="19" rx="15" ry="8" fill="none" stroke="black" stroke-width="2.5"/>
-                    </svg>
-                </div>
-                <span>Mechanized Infantry</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-symbol">
-                    <svg width="50" height="35" viewBox="0 0 50 35">
-                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
-                        <ellipse cx="25" cy="17.5" rx="16" ry="9" fill="none" stroke="black" stroke-width="3"/>
-                    </svg>
-                </div>
-                <span>Armored/Tank</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-symbol">
-                    <svg width="50" height="35" viewBox="0 0 50 35">
-                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
-                        <line x1="8" y1="8" x2="42" y2="27" stroke="black" stroke-width="3"/>
-                        <line x1="8" y1="27" x2="42" y2="8" stroke="black" stroke-width="3"/>
-                    </svg>
-                </div>
-                <span>Infantry</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-symbol">
-                    <svg width="50" height="35" viewBox="0 0 50 35">
-                        <rect x="5" y="5" width="40" height="25" fill="#87CEEB" stroke="black" stroke-width="2"/>
-                        <circle cx="25" cy="17.5" r="4" fill="black"/>
-                    </svg>
-                </div>
-                <span>Artillery</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-symbol">
-                    <svg width="50" height="35" viewBox="0 0 50 35">
-                        <path d="M 25 5 L 45 17.5 L 25 30 L 5 17.5 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
-                        <circle cx="25" cy="17.5" r="6" fill="none" stroke="black" stroke-width="1.5"/>
-                        <text x="25" y="21" text-anchor="middle" font-size="10" font-weight="bold">F</text>
-                    </svg>
-                </div>
-                <span>Fuel Depot (Red)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-symbol">
-                    <svg width="50" height="35" viewBox="0 0 50 35">
-                        <path d="M 25 5 L 45 17.5 L 25 30 L 5 17.5 Z" fill="#FF6B6B" stroke="black" stroke-width="2"/>
-                        <path d="M 15 15 L 35 15 L 35 20 L 30 20 L 30 17 L 20 17 L 20 20 L 15 20 Z" fill="black"/>
-                    </svg>
-                </div>
-                <span>Port (Red)</span>
-            </div>
-            <div class="legend-item">
-                <span style="margin-left: 10px;"><strong>Unit Size Indicators:</strong></span>
-            </div>
-            <div class="legend-item">
-                <span style="margin-left: 20px;">II = Battalion | X = Brigade | XXX = Division/Corps</span>
-            </div>
-        </div>
+        <div class="legend-content" id="legendContent"></div>
     </div>
     
     <div class="map-controls">
@@ -1061,218 +941,159 @@
             btn.innerHTML = legend.classList.contains('collapsed') ? '▲' : '▼';
         }
 
-        // Function to create NATO symbol SVG
-        function createNATOSymbol(type, size, designation, force = 'blue') {
-            let symbolContent = '';
-            let width = 60;
-            let height = 40;
-            let topOffset = 20;
-            let fillColor = force === 'red' ? '#FF6B6B' : '#87CEEB';
-            
-            // Size indicators
-            let sizeSymbol = '';
-            switch(size) {
-                case 'brigade': 
-                    sizeSymbol = `
-                        <line x1="${width/2 - 8}" y1="5" x2="${width/2 + 8}" y2="18" stroke="black" stroke-width="2.5"/>
-                        <line x1="${width/2 - 8}" y1="18" x2="${width/2 + 8}" y2="5" stroke="black" stroke-width="2.5"/>
-                    `;
-                    break;
-                case 'corps': 
-                    sizeSymbol = `
-                        <line x1="${width/2 - 20}" y1="5" x2="${width/2 - 10}" y2="15" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 20}" y1="15" x2="${width/2 - 10}" y2="5" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 5}" y1="5" x2="${width/2 + 5}" y2="15" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 5}" y1="15" x2="${width/2 + 5}" y2="5" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 + 10}" y1="5" x2="${width/2 + 20}" y2="15" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 + 10}" y1="15" x2="${width/2 + 20}" y2="5" stroke="black" stroke-width="2"/>
-                    `;
-                    break;
-                case 'battalion': 
-                    sizeSymbol = `
-                        <line x1="${width/2 - 6}" y1="3" x2="${width/2 - 6}" y2="17" stroke="black" stroke-width="3"/>
-                        <line x1="${width/2 + 6}" y1="3" x2="${width/2 + 6}" y2="17" stroke="black" stroke-width="3"/>
-                    `;
-                    break;
-                case 'installation':
-                    sizeSymbol = '';
-                    topOffset = 5;
-                    break;
-            }
-            
-            // Shape based on force type
-            let baseShape = '';
+        // Refactored NATO symbol generation (modular + caching)
+        const __natoSymbolCache = {};
+
+        const NATO_SYMBOL_CONFIG = {
+            frameWidth: 60,
+            frameHeight: 40,
+            topPadding: 14,      // space reserved for echelon indicators
+            bottomPadding: 18,    // space for designation text
+            stroke: '#000',
+            friendlyFill: '#87CEEB',
+            hostileFill: '#FF6B6B',
+            hostileStroke: '#C00000'
+        };
+
+        function buildFrame(force) {
+            const { frameWidth: w, frameHeight: h, topPadding } = NATO_SYMBOL_CONFIG;
             if (force === 'red') {
-                // Diamond shape for red forces - make it larger to fit symbols
-                const diamondWidth = width + 10;
-                const diamondHeight = height + 10;
-                const offsetAdjust = topOffset - 5;
-                baseShape = `<path d="M ${diamondWidth/2} ${offsetAdjust} L ${diamondWidth} ${offsetAdjust + diamondHeight/2} L ${diamondWidth/2} ${offsetAdjust + diamondHeight} L 0 ${offsetAdjust + diamondHeight/2} Z" fill="${fillColor}" stroke="black" stroke-width="2"/>`;
-                // Adjust width and height for symbol positioning
-                width = diamondWidth;
-                height = diamondHeight;
-                topOffset = offsetAdjust;
-            } else {
-                // Rectangle for blue forces
-                baseShape = `<rect x="0" y="${topOffset}" width="${width}" height="${height}" fill="${fillColor}" stroke="black" stroke-width="2"/>`;
+                // Diamond centered at (w/2, topPadding + h/2)
+                const dTop = topPadding;
+                return {
+                    shape: `<path d="M ${w/2} ${dTop} L ${w} ${dTop + h/2} L ${w/2} ${dTop + h} L 0 ${dTop + h/2} Z" fill="${NATO_SYMBOL_CONFIG.hostileFill}" stroke="${NATO_SYMBOL_CONFIG.hostileStroke}" stroke-width="2" vector-effect="non-scaling-stroke"/>`,
+                    width: w,
+                    height: h,
+                    topOffset: topPadding
+                };
             }
-            
-            // Create different symbols based on type
+            return {
+                shape: `<rect x="0" y="${topPadding}" width="${w}" height="${h}" fill="${NATO_SYMBOL_CONFIG.friendlyFill}" stroke="${NATO_SYMBOL_CONFIG.stroke}" stroke-width="2" vector-effect="non-scaling-stroke"/>`,
+                width: w,
+                height: h,
+                topOffset: topPadding
+            };
+        }
+
+        function buildEchelon(size, frameWidth) {
+            const mid = frameWidth / 2;
+            const yBase = 4; // vertical area above frame
+            switch(size) {
+                case 'battalion':
+                    return `<line x1="${mid - 8}" y1="0" x2="${mid - 8}" y2="10" stroke="black" stroke-width="3"/>` +
+                           `<line x1="${mid + 8}" y1="0" x2="${mid + 8}" y2="10" stroke="black" stroke-width="3"/>`;
+                case 'brigade':
+                    return `<line x1="${mid - 10}" y1="0" x2="${mid + 10}" y2="10" stroke="black" stroke-width="2.5"/>` +
+                           `<line x1="${mid - 10}" y1="10" x2="${mid + 10}" y2="0" stroke="black" stroke-width="2.5"/>`;
+                case 'division':
+                    return `<line x1="${mid - 18}" y1="0" x2="${mid - 4}" y2="10" stroke="black" stroke-width="2.3"/>` +
+                           `<line x1="${mid - 18}" y1="10" x2="${mid - 4}" y2="0" stroke="black" stroke-width="2.3"/>` +
+                           `<line x1="${mid + 4}" y1="0" x2="${mid + 18}" y2="10" stroke="black" stroke-width="2.3"/>` +
+                           `<line x1="${mid + 4}" y1="10" x2="${mid + 18}" y2="0" stroke="black" stroke-width="2.3"/>`;
+                case 'corps':
+                    return [ -26, -8, 10 ].map(xOff => (
+                        `<line x1="${mid + xOff}" y1="0" x2="${mid + xOff + 12}" y2="10" stroke="black" stroke-width="2"/>` +
+                        `<line x1="${mid + xOff}" y1="10" x2="${mid + xOff + 12}" y2="0" stroke="black" stroke-width="2"/>`
+                    )).join('');
+                case 'installation':
+                default:
+                    return '';
+            }
+        }
+
+        function buildIcon(type, frame) {
+            const { width: w, height: h, topOffset } = frame;
+            const cx = w/2, cy = topOffset + h/2;
+            const common = [];
             switch(type) {
                 case 'corps-hq':
-                    symbolContent = `
-                        ${baseShape}
-                        <text x="${width/2}" y="${topOffset + height/2 + 5}" text-anchor="middle" font-size="14" font-weight="bold">HQ</text>
-                    `;
-                    break;
+                    common.push(`<text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="14" font-weight="bold">HQ</text>`); break;
                 case 'fuel-depot':
-                    symbolContent = `
-                        ${baseShape}
-                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="8" fill="none" stroke="black" stroke-width="1.5"/>
-                        <text x="${width/2}" y="${topOffset + height/2 + 4}" text-anchor="middle" font-size="12" font-weight="bold">F</text>
-                    `;
-                    break;
+                    common.push(`<circle cx="${cx}" cy="${cy}" r="8" fill="none" stroke="black" stroke-width="1.5"/>`);
+                    common.push(`<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="12" font-weight="bold">F</text>`); break;
                 case 'port':
-                    symbolContent = `
-                        ${baseShape}
-                        <path d="M ${width/2 - 10} ${topOffset + height/2 - 5} L ${width/2 + 10} ${topOffset + height/2 - 5} L ${width/2 + 10} ${topOffset + height/2 + 3} L ${width/2 + 5} ${topOffset + height/2 + 3} L ${width/2 + 5} ${topOffset + height/2 - 1} L ${width/2 - 5} ${topOffset + height/2 - 1} L ${width/2 - 5} ${topOffset + height/2 + 3} L ${width/2 - 10} ${topOffset + height/2 + 3} Z" fill="black"/>
-                    `;
-                    break;
+                    common.push(`<path d="M ${cx - 10} ${cy - 5} L ${cx + 10} ${cy - 5} L ${cx + 10} ${cy + 3} L ${cx + 5} ${cy + 3} L ${cx + 5} ${cy - 1} L ${cx - 5} ${cy - 1} L ${cx - 5} ${cy + 3} L ${cx - 10} ${cy + 3} Z" fill="black"/>`); break;
                 case 'airfield':
-                    symbolContent = `
-                        ${baseShape}
-                        <line x1="${width/2 - 10}" y1="${topOffset + height/2}" x2="${width/2 + 10}" y2="${topOffset + height/2}" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2}" y1="${topOffset + height/2 - 7}" x2="${width/2}" y2="${topOffset + height/2 + 7}" stroke="black" stroke-width="2"/>
-                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="3" fill="black"/>
-                    `;
-                    break;
+                    common.push(`<line x1="${cx - 10}" y1="${cy}" x2="${cx + 10}" y2="${cy}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx}" y1="${cy - 7}" x2="${cx}" y2="${cy + 7}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<circle cx="${cx}" cy="${cy}" r="3" fill="black"/>`); break;
                 case 'jackup-barge':
-                    symbolContent = `
-                        ${baseShape}
-                        <rect x="${width/2 - 8}" y="${topOffset + height/2 - 5}" width="16" height="10" fill="none" stroke="black" stroke-width="1.5"/>
-                        <line x1="${width/2 - 5}" y1="${topOffset + height/2 + 5}" x2="${width/2 - 5}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
-                        <line x1="${width/2 + 5}" y1="${topOffset + height/2 + 5}" x2="${width/2 + 5}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
-                    `;
-                    break;
+                    common.push(`<rect x="${cx - 8}" y="${cy - 5}" width="16" height="10" fill="none" stroke="black" stroke-width="1.5"/>`);
+                    common.push(`<line x1="${cx - 5}" y1="${cy + 5}" x2="${cx - 5}" y2="${cy + 10}" stroke="black" stroke-width="1.5"/>`);
+                    common.push(`<line x1="${cx + 5}" y1="${cy + 5}" x2="${cx + 5}" y2="${cy + 10}" stroke="black" stroke-width="1.5"/>`); break;
                 case 'floating-pier':
-                    symbolContent = `
-                        ${baseShape}
-                        <rect x="${width/2 - 15}" y="${topOffset + height/2 - 3}" width="30" height="6" fill="none" stroke="black" stroke-width="1.5"/>
-                        <line x1="${width/2 - 10}" y1="${topOffset + height/2 - 3}" x2="${width/2 - 10}" y2="${topOffset + height/2 + 3}" stroke="black" stroke-width="1"/>
-                        <line x1="${width/2}" y1="${topOffset + height/2 - 3}" x2="${width/2}" y2="${topOffset + height/2 + 3}" stroke="black" stroke-width="1"/>
-                        <line x1="${width/2 + 10}" y1="${topOffset + height/2 - 3}" x2="${width/2 + 10}" y2="${topOffset + height/2 + 3}" stroke="black" stroke-width="1"/>
-                    `;
-                    break;
-                case 'mech-infantry':
-                    symbolContent = `
-                        ${baseShape}
-                        <line x1="8" y1="${topOffset + 5}" x2="${width-8}" y2="${topOffset + height-5}" stroke="black" stroke-width="3"/>
-                        <line x1="8" y1="${topOffset + height-5}" x2="${width-8}" y2="${topOffset + 5}" stroke="black" stroke-width="3"/>
-                        <ellipse cx="${width/2}" cy="${topOffset + height/2 + 2}" rx="20" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
-                    `;
-                    break;
+                    common.push(`<rect x="${cx - 15}" y="${cy - 3}" width="30" height="6" fill="none" stroke="black" stroke-width="1.5"/>`);
+                    [-10, 0, 10].forEach(x => common.push(`<line x1="${cx + x}" y1="${cy - 3}" x2="${cx + x}" y2="${cy + 3}" stroke="black" stroke-width="1"/>`)); break;
+                case 'mech-infantry': {
+                    const left = 0, right = w;
+                    const top = topOffset, bottom = topOffset + h;
+                    common.push(`<line x1="${left}" y1="${top}" x2="${right}" y2="${bottom}" stroke="black" stroke-width="3"/>`);
+                    common.push(`<line x1="${left}" y1="${bottom}" x2="${right}" y2="${top}" stroke="black" stroke-width="3"/>`);
+                    common.push(`<ellipse cx="${cx}" cy="${cy}" rx="17" ry="7" fill="none" stroke="black" stroke-width="2"/>`); break; }
                 case 'armor':
-                    symbolContent = `
-                        ${baseShape}
-                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/>
-                    `;
-                    break;
+                    common.push(`<ellipse cx="${cx}" cy="${cy}" rx="18" ry="10" fill="none" stroke="black" stroke-width="3"/>`); break;
                 case 'artillery':
-                    symbolContent = `
-                        ${baseShape}
-                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="5" fill="black"/>
-                    `;
-                    break;
-                case 'infantry':
-                    symbolContent = `
-                        ${baseShape}
-                        <line x1="8" y1="${topOffset + 5}" x2="${width-8}" y2="${topOffset + height-5}" stroke="black" stroke-width="3"/>
-                        <line x1="8" y1="${topOffset + height-5}" x2="${width-8}" y2="${topOffset + 5}" stroke="black" stroke-width="3"/>
-                    `;
-                    break;
+                    common.push(`<circle cx="${cx}" cy="${cy}" r="5" fill="black"/>`); break;
+                case 'infantry': {
+                    const left = 0, right = w;
+                    const top = topOffset, bottom = topOffset + h;
+                    common.push(`<line x1="${left}" y1="${top}" x2="${right}" y2="${bottom}" stroke="black" stroke-width="3"/>`);
+                    common.push(`<line x1="${left}" y1="${bottom}" x2="${right}" y2="${top}" stroke="black" stroke-width="3"/>`); break; }
                 case 'amphibious':
-                    symbolContent = `
-                        ${baseShape}
-                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 12}" y1="${topOffset + height/2 - 6}" x2="${width/2 + 12}" y2="${topOffset + height/2 + 6}" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 12}" y1="${topOffset + height/2 + 6}" x2="${width/2 + 12}" y2="${topOffset + height/2 - 6}" stroke="black" stroke-width="2"/>
-                    `;
-                    break;
+                    common.push(`<ellipse cx="${cx}" cy="${cy}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx - 12}" y1="${cy - 6}" x2="${cx + 12}" y2="${cy + 6}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx - 12}" y1="${cy + 6}" x2="${cx + 12}" y2="${cy - 6}" stroke="black" stroke-width="2"/>`); break;
                 case 'airborne':
-                    symbolContent = `
-                        ${baseShape}
-                        <path d="M ${width/2} ${topOffset + 8} Q ${width/2 - 15} ${topOffset + height/2} ${width/2} ${topOffset + height - 8} Q ${width/2 + 15} ${topOffset + height/2} ${width/2} ${topOffset + 8}" fill="none" stroke="black" stroke-width="2.5"/>
-                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 - 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 + 8}" stroke="black" stroke-width="3"/>
-                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 + 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 - 8}" stroke="black" stroke-width="3"/>
-                    `;
-                    break;
+                    common.push(`<path d="M ${cx} ${topOffset + 8} Q ${cx - 15} ${cy} ${cx} ${topOffset + h - 8} Q ${cx + 15} ${cy} ${cx} ${topOffset + 8}" fill="none" stroke="black" stroke-width="2.5"/>`);
+                    common.push(`<line x1="${cx - 8}" y1="${cy - 8}" x2="${cx + 8}" y2="${cy + 8}" stroke="black" stroke-width="3"/>`);
+                    common.push(`<line x1="${cx - 8}" y1="${cy + 8}" x2="${cx + 8}" y2="${cy - 8}" stroke="black" stroke-width="3"/>`); break;
                 case 'air-assault':
-                    symbolContent = `
-                        ${baseShape}
-                        <line x1="${width/2}" y1="${topOffset + 8}" x2="${width/2}" y2="${topOffset + height - 8}" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 12}" y1="${topOffset + 12}" x2="${width/2 + 12}" y2="${topOffset + 12}" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 - 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 + 8}" stroke="black" stroke-width="3"/>
-                        <line x1="${width/2 - 8}" y1="${topOffset + height/2 + 8}" x2="${width/2 + 8}" y2="${topOffset + height/2 - 8}" stroke="black" stroke-width="3"/>
-                    `;
-                    break;
+                    common.push(`<line x1="${cx}" y1="${topOffset + 8}" x2="${cx}" y2="${topOffset + h - 8}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx - 12}" y1="${topOffset + 12}" x2="${cx + 12}" y2="${topOffset + 12}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx - 8}" y1="${cy - 8}" x2="${cx + 8}" y2="${cy + 8}" stroke="black" stroke-width="3"/>`);
+                    common.push(`<line x1="${cx - 8}" y1="${cy + 8}" x2="${cx + 8}" y2="${cy - 8}" stroke="black" stroke-width="3"/>`); break;
                 case 'engineers':
-                    symbolContent = `
-                        ${baseShape}
-                        <rect x="${width/2 - 8}" y="${topOffset + height/2 - 8}" width="16" height="16" fill="none" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 4}" y1="${topOffset + height/2 - 4}" x2="${width/2 + 4}" y2="${topOffset + height/2 + 4}" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 4}" y1="${topOffset + height/2 + 4}" x2="${width/2 + 4}" y2="${topOffset + height/2 - 4}" stroke="black" stroke-width="2"/>
-                    `;
-                    break;
+                    common.push(`<rect x="${cx - 8}" y="${cy - 8}" width="16" height="16" fill="none" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx - 4}" y1="${cy - 4}" x2="${cx + 4}" y2="${cy + 4}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx - 4}" y1="${cy + 4}" x2="${cx + 4}" y2="${cy - 4}" stroke="black" stroke-width="2"/>`); break;
                 case 'recon':
-                    symbolContent = `
-                        ${baseShape}
-                        <ellipse cx="${width/2}" cy="${topOffset + height/2}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
-                        <line x1="${width/2 - 12}" y1="${topOffset + height/2}" x2="${width/2 + 12}" y2="${topOffset + height/2}" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2}" y1="${topOffset + height/2 - 7}" x2="${width/2}" y2="${topOffset + height/2 + 7}" stroke="black" stroke-width="2"/>
-                    `;
-                    break;
+                    common.push(`<ellipse cx="${cx}" cy="${cy}" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>`);
+                    common.push(`<line x1="${cx - 12}" y1="${cy}" x2="${cx + 12}" y2="${cy}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx}" y1="${cy - 7}" x2="${cx}" y2="${cy + 7}" stroke="black" stroke-width="2"/>`); break;
                 case 'shorad':
-                    symbolContent = `
-                        ${baseShape}
-                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="6" fill="none" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2 - 10}" y1="${topOffset + height/2 - 10}" x2="${width/2 + 10}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
-                        <line x1="${width/2 + 10}" y1="${topOffset + height/2 - 10}" x2="${width/2 - 10}" y2="${topOffset + height/2 + 10}" stroke="black" stroke-width="1.5"/>
-                        <polygon points="${width/2},${topOffset + height/2 - 12} ${width/2 - 4},${topOffset + height/2 - 8} ${width/2 + 4},${topOffset + height/2 - 8}" fill="black"/>
-                    `;
-                    break;
+                    common.push(`<circle cx="${cx}" cy="${cy}" r="6" fill="none" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx - 10}" y1="${cy - 10}" x2="${cx + 10}" y2="${cy + 10}" stroke="black" stroke-width="1.5"/>`);
+                    common.push(`<line x1="${cx + 10}" y1="${cy - 10}" x2="${cx - 10}" y2="${cy + 10}" stroke="black" stroke-width="1.5"/>`);
+                    common.push(`<polygon points="${cx},${cy - 12} ${cx - 4},${cy - 8} ${cx + 4},${cy - 8}" fill="black"/>`); break;
                 case 'sp-arty':
-                    symbolContent = `
-                        ${baseShape}
-                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="5" fill="black"/>
-                        <ellipse cx="${width/2}" cy="${topOffset + height/2 + 8}" rx="15" ry="6" fill="none" stroke="black" stroke-width="2"/>
-                    `;
-                    break;
+                    common.push(`<circle cx="${cx}" cy="${cy}" r="5" fill="black"/>`);
+                    common.push(`<ellipse cx="${cx}" cy="${cy + 8}" rx="15" ry="6" fill="none" stroke="black" stroke-width="2"/>`); break;
                 case 'sof':
-                    symbolContent = `
-                        ${baseShape}
-                        <path d="M ${width/2 - 10} ${topOffset + height/2 - 8} L ${width/2 + 10} ${topOffset + height/2 - 8} L ${width/2 + 6} ${topOffset + height/2} L ${width/2 + 10} ${topOffset + height/2 + 8} L ${width/2 - 10} ${topOffset + height/2 + 8} L ${width/2 - 6} ${topOffset + height/2} Z" fill="none" stroke="black" stroke-width="2"/>
-                        <circle cx="${width/2}" cy="${topOffset + height/2}" r="3" fill="black"/>
-                    `;
-                    break;
+                    common.push(`<path d="M ${cx - 10} ${cy - 8} L ${cx + 10} ${cy - 8} L ${cx + 6} ${cy} L ${cx + 10} ${cy + 8} L ${cx - 10} ${cy + 8} L ${cx - 6} ${cy} Z" fill="none" stroke="black" stroke-width="2"/>`);
+                    common.push(`<circle cx="${cx}" cy="${cy}" r="3" fill="black"/>`); break;
                 case 'marine':
-                    symbolContent = `
-                        ${baseShape}
-                        <line x1="15" y1="${topOffset + height/2}" x2="${width-15}" y2="${topOffset + height/2}" stroke="black" stroke-width="2"/>
-                        <line x1="${width/2}" y1="${topOffset + 10}" x2="${width/2}" y2="${topOffset + height-10}" stroke="black" stroke-width="2"/>
-                        <path d="M 15 ${topOffset + height-10} Q ${width/2} ${topOffset + height-15} ${width-15} ${topOffset + height-10}" fill="none" stroke="black" stroke-width="2"/>
-                    `;
-                    break;
+                    common.push(`<line x1="15" y1="${cy}" x2="${w - 15}" y2="${cy}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<line x1="${cx}" y1="${topOffset + 10}" x2="${cx}" y2="${topOffset + h - 10}" stroke="black" stroke-width="2"/>`);
+                    common.push(`<path d="M 15 ${topOffset + h - 10} Q ${cx} ${topOffset + h - 15} ${w - 15} ${topOffset + h - 10}" fill="none" stroke="black" stroke-width="2"/>`); break;
                 default:
-                    symbolContent = baseShape;
+                    // unspecified / combined arms fallback
+                    common.push(`<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="10">UNSPEC</text>`);
             }
-            
-            return `
-                <svg width="${width}" height="${height + topOffset + 20}" xmlns="http://www.w3.org/2000/svg">
-                    ${sizeSymbol}
-                    ${symbolContent}
-                    ${designation ? `<text x="${width/2}" y="${topOffset + height + 15}" text-anchor="middle" font-size="11" font-weight="bold">${designation}</text>` : ''}
-                </svg>
-            `;
+            return common.join('');
+        }
+
+        function createNATOSymbol(type, size, designation, force = 'blue') {
+            const cacheKey = JSON.stringify([type, size, designation, force]);
+            if (__natoSymbolCache[cacheKey]) return __natoSymbolCache[cacheKey];
+
+            const frame = buildFrame(force);
+            const echelon = buildEchelon(size, frame.width);
+            const icon = buildIcon(type, frame);
+
+            const totalHeight = frame.topOffset + frame.height + NATO_SYMBOL_CONFIG.bottomPadding;
+            const svg = `\n<svg width="${frame.width}" height="${totalHeight}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${type} ${size || ''}">\n  <g class="nato-symbol" font-family="Arial,Helvetica,sans-serif" fill-rule="evenodd">\n    ${echelon}\n    ${frame.shape}\n    ${icon}\n    ${designation ? `<text x="${frame.width/2}" y="${frame.topOffset + frame.height + 14}" text-anchor="middle" font-size="11" font-weight="bold">${designation}</text>` : ''}\n  </g>\n</svg>`;
+            __natoSymbolCache[cacheKey] = svg;
+            return svg;
         }
 
         // Function to create custom NATO icon for Leaflet
@@ -1287,6 +1108,40 @@
                 popupAnchor: [0, -40]
             });
         }
+
+        const LEGEND_ITEMS = [
+            { label: 'Corps/Command HQ', type: 'corps-hq', size: 'corps', force: 'blue' },
+            { label: 'Mechanized Infantry', type: 'mech-infantry', size: 'brigade', force: 'blue' },
+            { label: 'Armor (Oval)', type: 'armor', size: 'brigade', force: 'blue' },
+            { label: 'Infantry', type: 'infantry', size: 'brigade', force: 'blue' },
+            { label: 'Artillery', type: 'artillery', size: 'brigade', force: 'blue' },
+            { label: 'Fuel Depot (Red)', type: 'fuel-depot', size: 'installation', force: 'red' },
+            { label: 'Port (Red)', type: 'port', size: 'installation', force: 'red' }
+        ];
+
+        function renderLegend() {
+            const legendContent = document.getElementById('legendContent');
+            if (!legendContent) return;
+
+            const itemsHtml = LEGEND_ITEMS.map(item => {
+                const symbolSvg = createNATOSymbol(item.type, item.size, '', item.force);
+                return `
+                <div class="legend-item">
+                    <div class="legend-symbol">${symbolSvg}</div>
+                    <span>${item.label}</span>
+                </div>`;
+            }).join('');
+
+            legendContent.innerHTML = `${itemsHtml}
+                <div class="legend-item">
+                    <span style="margin-left: 10px;"><strong>Unit Size Indicators:</strong></span>
+                </div>
+                <div class="legend-item">
+                    <span style="margin-left: 20px;">II = Battalion | X = Brigade | XXX = Division/Corps</span>
+                </div>`;
+        }
+
+        renderLegend();
 
         // Red amphibious assault force near 584th Armored Brigade position
         const redUnits = [
