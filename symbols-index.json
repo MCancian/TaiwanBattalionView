@@ -1,0 +1,3567 @@
+{
+  "source": "Military_Symbology_Guide.svg",
+  "total": 178,
+  "generatedAt": "2025-09-25T23:38:12.953Z",
+  "symbols": [
+    {
+      "slug": "joint_and_combined_arms_organizations",
+      "label": "Joint and Combined Arms Organizations",
+      "transform": {
+        "x": 0,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "unspecified_or_combined_arms",
+      "label": "unspecified - or - combined arms",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "joint_task_force",
+      "label": "joint task force",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "maritime_task_force",
+      "label": "maritime task force",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "land_task_force",
+      "label": "land task force",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_task_force",
+      "label": "air task force",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "combined_arms_mechanized_force",
+      "label": "combined arms mechanized force",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "combined_arms_airborne_force",
+      "label": "combined arms airborne force",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_assault_force",
+      "label": "air assault force",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "marine_air_ground_task_force",
+      "label": "marine air ground task force",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "carrier_task_force",
+      "label": "carrier task force",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "amphibious_task_force",
+      "label": "amphibious task force",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "maritime_organizations",
+      "label": "Maritime Organizations",
+      "transform": {
+        "x": 0,
+        "y": 1220
+      },
+      "bbox": {
+        "x": 5,
+        "y": 1225,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 1220,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "naval_including_shore_based_elements",
+      "label": "naval (including shore based elements)",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "aircraft_carrier_s",
+      "label": "aircraft carrier(s)",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "amphibious_warfare_ship_s",
+      "label": "amphibious warfare ship(s)",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "surface_combatant_s",
+      "label": "surface combatant(s)",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "battleship_s",
+      "label": "battleship(s)",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "cruiser_s",
+      "label": "cruiser(s)",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "destroyer_s",
+      "label": "destroyer(s)",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "frigate_s",
+      "label": "frigate(s)",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "corvette_s",
+      "label": "corvette(s)",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "submarine_s",
+      "label": "submarine(s)",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "oiler_replenisher_s",
+      "label": "oiler replenisher(s)",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_organizations",
+      "label": "Air Organizations",
+      "transform": {
+        "x": 0,
+        "y": 2240
+      },
+      "bbox": {
+        "x": 5,
+        "y": 2245,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 2240,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_force_or_aviation",
+      "label": "air force - or - aviation",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "fixed_wing_aircraft",
+      "label": "fixed wing aircraft",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "fighter_attack_aircraft_fixed_wing",
+      "label": "fighter/attack aircraft (fixed wing)",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "cargo_aircraft_fixed_wing",
+      "label": "cargo aircraft (fixed wing)",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "long_range_patrol_aircraft_fixed_wing",
+      "label": "long range patrol aircraft (fixed wing)",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "helicopters",
+      "label": "helicopters",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "attack_helicopters",
+      "label": "attack helicopters",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "utility_helicopters",
+      "label": "utility helicopters",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "reconnaissance_helicopters",
+      "label": "reconnaissance helicopters",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_assault_lift_helicopters",
+      "label": "air assault lift (helicopters)",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "uav",
+      "label": "UAV",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_force",
+      "label": "special operations force",
+      "transform": {
+        "x": 0,
+        "y": 3260
+      },
+      "bbox": {
+        "x": 5,
+        "y": 3265,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 3260,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_force",
+      "label": "special operations force",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_support",
+      "label": "special operations support",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_infantry",
+      "label": "special operations infantry",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_reconnaissance",
+      "label": "special operations reconnaissance",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_aviation",
+      "label": "special operations aviation",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_boats",
+      "label": "special operations boats",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_divers",
+      "label": "special operations divers",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_counter_cbrn",
+      "label": "special operations counter-CBRN",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_engineers",
+      "label": "special operations engineers",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_mobile_mentor_and_assist",
+      "label": "special operations mobile mentor and assist",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "special_operations_snipers",
+      "label": "special operations snipers",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "infantry_organizations",
+      "label": "Infantry Organizations",
+      "transform": {
+        "x": 0,
+        "y": 4280
+      },
+      "bbox": {
+        "x": 5,
+        "y": 4285,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 4280,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "infantry",
+      "label": "infantry",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "light_infantry",
+      "label": "light infantry",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "motorized_infantry",
+      "label": "motorized infantry",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "mechanized_infantry_tracked",
+      "label": "mechanized infantry (tracked)",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armoured_infantry",
+      "label": "armoured infantry",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "lav_infantry",
+      "label": "LAV infantry",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "mechanized_infantry_wheeled",
+      "label": "mechanized infantry (wheeled)",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "airborne_infantry",
+      "label": "airborne infantry",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "airmobile_infantry",
+      "label": "airmobile infantry",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "amphibious_infantry",
+      "label": "amphibious infantry",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "arctic_infantry",
+      "label": "arctic infantry",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "infantry_combat_support_organizations",
+      "label": "Infantry Combat Support Organizations",
+      "transform": {
+        "x": 0,
+        "y": 5300
+      },
+      "bbox": {
+        "x": 5,
+        "y": 5305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 5300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "infantry_combat_support",
+      "label": "infantry combat support",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "light_infantry_combat_support",
+      "label": "light infantry combat support",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "infantry_weapons",
+      "label": "infantry weapons",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "infantry_snipers",
+      "label": "infantry snipers",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "infantry_mortars",
+      "label": "infantry mortars",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "assault_pioneers",
+      "label": "assault pioneers",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "reconnaissance",
+      "label": "reconnaissance",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "light_reconnaissance",
+      "label": "light reconnaissance",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "airborne_reconnaissance",
+      "label": "airborne reconnaissance",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "amphibious_reconnaissance",
+      "label": "amphibious reconnaissance",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "arctic_reconnaissance",
+      "label": "arctic reconnaissance",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armour_organizations",
+      "label": "Armour Organizations",
+      "transform": {
+        "x": 0,
+        "y": 6320
+      },
+      "bbox": {
+        "x": 5,
+        "y": 6325,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 6320,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armour",
+      "label": "armour",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "light_armour",
+      "label": "light armour",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "heavy_armour",
+      "label": "heavy armour",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armour_wheeled",
+      "label": "armour (wheeled)",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armoured_reconnaissance",
+      "label": "armoured reconnaissance",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armoured_reconnaissance_wheeled",
+      "label": "armoured reconnaissance (wheeled)",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "motorized_reconnaissance",
+      "label": "motorized reconnaissance",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "tank_destroyers_wheeled",
+      "label": "tank destroyers (wheeled)",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armoured_assault_carriers_tracked",
+      "label": "armoured assault carriers (tracked)",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "amphibious_armoured_assault_carriers_tracked",
+      "label": "amphibious armoured assault carriers (tracked)",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "amphibious_armoured_assault_carriers_wheeled",
+      "label": "amphibious armoured assault carriers (wheeled)",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "military_engineer_organizations",
+      "label": "Military Engineer Organizations",
+      "transform": {
+        "x": 0,
+        "y": 7340
+      },
+      "bbox": {
+        "x": 5,
+        "y": 7345,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 7340,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "engineers",
+      "label": "engineers",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "combat_engineers",
+      "label": "combat engineers",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "combat_engineers_tracked",
+      "label": "combat engineers (tracked)",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "combat_engineers_wheeled",
+      "label": "combat engineers (wheeled)",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "motorized_engineers",
+      "label": "motorized engineers",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "armoured_engineers",
+      "label": "armoured engineers",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "engineer_support",
+      "label": "engineer support",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "eod_engineers",
+      "label": "EOD engineers",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "engineer_resources",
+      "label": "engineer resources",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "engineer_reconnaissance",
+      "label": "engineer reconnaissance",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "construction_engineers",
+      "label": "construction engineers",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "artillery_organizations",
+      "label": "Artillery Organizations",
+      "transform": {
+        "x": 0,
+        "y": 8360
+      },
+      "bbox": {
+        "x": 5,
+        "y": 8365,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 8360,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "artillery",
+      "label": "artillery",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "mechanized_artillery",
+      "label": "mechanized artillery",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "self_propelled_artillery_tracked",
+      "label": "self-propelled artillery (tracked)",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "self_propelled_artillery_wheeled",
+      "label": "self-propelled artillery (wheeled)",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "towed_artillery",
+      "label": "towed artillery",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "rocket_artillery",
+      "label": "rocket artillery",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "mortars",
+      "label": "mortars",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "mechanized_mortars_wheeled",
+      "label": "mechanized mortars (wheeled)",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "artillery_forward_observers",
+      "label": "artillery forward observers",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "target_aquisition",
+      "label": "target aquisition",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "target_aquisition_radar_amp_uav",
+      "label": "target aquisition (radar &amp; UAV)",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "other_fires_organizations",
+      "label": "Other Fires Organizations",
+      "transform": {
+        "x": 0,
+        "y": 9380
+      },
+      "bbox": {
+        "x": 5,
+        "y": 9385,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 9380,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_defence_amp_anti_tank",
+      "label": "air defence &amp; anti-tank",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_defence",
+      "label": "air defence",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_defence_missile_equiped",
+      "label": "air defence (missile equiped)",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "short_range_air_defence_mechanized",
+      "label": "short range air defence (mechanized)",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "anti_tank",
+      "label": "anti-tank",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "motorized_anti_tank",
+      "label": "motorized anti-tank",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "mechanized_anti_tank_wheeled",
+      "label": "mechanized anti-tank (wheeled)",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "anti_tank_missile_equiped",
+      "label": "anti-tank (missile equiped)",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "surface_to_surface_missiles",
+      "label": "surface-to-surface missiles",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "coastal_anti_ship_missiles",
+      "label": "coastal anti-ship missiles",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "tactical_air_control_party",
+      "label": "tactical air control party",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "other_combat_support_organizations",
+      "label": "Other Combat Support Organizations",
+      "transform": {
+        "x": 0,
+        "y": 10400
+      },
+      "bbox": {
+        "x": 5,
+        "y": 10405,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 10400,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "combat_support",
+      "label": "combat support",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "cbrn_defence",
+      "label": "CBRN defence",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "military_intelligence",
+      "label": "military intelligence",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "communications_amp_information_systems",
+      "label": "communications &amp; information systems",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "electronic_warfare",
+      "label": "electronic warfare",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "air_communications_amp_control",
+      "label": "air communications &amp; control",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "communication_systems_repair",
+      "label": "communication systems repair",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "cyber",
+      "label": "cyber",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "military_police",
+      "label": "military police",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "security_force",
+      "label": "security force",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "canadian_rangers",
+      "label": "Canadian Rangers",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "sustainment_organizations",
+      "label": "Sustainment Organizations",
+      "transform": {
+        "x": 0,
+        "y": 11420
+      },
+      "bbox": {
+        "x": 5,
+        "y": 11425,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 11420,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "sustainment",
+      "label": "sustainment",
+      "transform": {
+        "x": 200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "supply",
+      "label": "supply",
+      "transform": {
+        "x": 1100,
+        "y": 200
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "transportation",
+      "label": "transportation",
+      "transform": {
+        "x": 2000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "supply_amp_transportation",
+      "label": "supply &amp; transportation",
+      "transform": {
+        "x": 2900,
+        "y": 200
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "ammunition",
+      "label": "ammunition",
+      "transform": {
+        "x": 3800,
+        "y": 200
+      },
+      "bbox": {
+        "x": 3805,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 3800,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "fuels_amp_lubricants",
+      "label": "fuels &amp; lubricants",
+      "transform": {
+        "x": 4700,
+        "y": 200
+      },
+      "bbox": {
+        "x": 4705,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 4700,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "ordnance",
+      "label": "ordnance",
+      "transform": {
+        "x": 5600,
+        "y": 200
+      },
+      "bbox": {
+        "x": 5605,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 5600,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "food_services_amp_rations",
+      "label": "food services &amp; rations",
+      "transform": {
+        "x": 6500,
+        "y": 200
+      },
+      "bbox": {
+        "x": 6505,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 6500,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "maintenance",
+      "label": "maintenance",
+      "transform": {
+        "x": 7400,
+        "y": 200
+      },
+      "bbox": {
+        "x": 7405,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 7400,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "aircraft_maintenance",
+      "label": "aircraft maintenance",
+      "transform": {
+        "x": 8300,
+        "y": 200
+      },
+      "bbox": {
+        "x": 8305,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 8300,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "medical",
+      "label": "medical",
+      "transform": {
+        "x": 9200,
+        "y": 200
+      },
+      "bbox": {
+        "x": 9205,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 9200,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "frame_types",
+      "label": "Frame Types",
+      "transform": {
+        "x": 10000,
+        "y": 200
+      },
+      "bbox": {
+        "x": 10005,
+        "y": 205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 10000,
+        "y": 200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "unit_or_installation",
+      "label": "unit - or - installation",
+      "transform": {
+        "x": 550,
+        "y": 300
+      },
+      "bbox": {
+        "x": 555,
+        "y": 305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 550,
+        "y": 300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "activity_or_event",
+      "label": "activity - or - event",
+      "transform": {
+        "x": 2350,
+        "y": 300
+      },
+      "bbox": {
+        "x": 2355,
+        "y": 305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2350,
+        "y": 300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "organization_frame_modifiers",
+      "label": "Organization Frame Modifiers",
+      "transform": {
+        "x": 10000,
+        "y": 2300
+      },
+      "bbox": {
+        "x": 10005,
+        "y": 2305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 10000,
+        "y": 2300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "standing_organizations",
+      "label": "Standing Organizations",
+      "transform": {
+        "x": 0,
+        "y": 300
+      },
+      "bbox": {
+        "x": 5,
+        "y": 305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 0,
+        "y": 300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "combatant_command_theatre_region",
+      "label": "combatant command theatre region",
+      "transform": {
+        "x": 100,
+        "y": 400
+      },
+      "bbox": {
+        "x": 105,
+        "y": 405,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 400,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "major_command_front_navy_army_group",
+      "label": "major command front navy army group",
+      "transform": {
+        "x": 100,
+        "y": 1000
+      },
+      "bbox": {
+        "x": 105,
+        "y": 1005,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 1000,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "command_fleet_army_air_force",
+      "label": "command fleet army air force",
+      "transform": {
+        "x": 100,
+        "y": 1600
+      },
+      "bbox": {
+        "x": 105,
+        "y": 1605,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 1600,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "command_minor_corps",
+      "label": "command (minor) corps",
+      "transform": {
+        "x": 100,
+        "y": 2200
+      },
+      "bbox": {
+        "x": 105,
+        "y": 2205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 2200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "division",
+      "label": "division",
+      "transform": {
+        "x": 100,
+        "y": 2800
+      },
+      "bbox": {
+        "x": 105,
+        "y": 2805,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 2800,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "formation_squadron_navy_brigade_wing",
+      "label": "formation squadron (navy) brigade wing",
+      "transform": {
+        "x": 100,
+        "y": 3400
+      },
+      "bbox": {
+        "x": 105,
+        "y": 3405,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 3400,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "formation_minor_flotilla_group_unit_major_ship_major_regiment",
+      "label": "formation (minor) flotilla group unit (major) ship (major) regiment",
+      "transform": {
+        "x": 100,
+        "y": 4000
+      },
+      "bbox": {
+        "x": 105,
+        "y": 4005,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 4000,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "unit_ship_battalion_squadron_major",
+      "label": "unit ship battalion squadron (major)",
+      "transform": {
+        "x": 100,
+        "y": 4600
+      },
+      "bbox": {
+        "x": 105,
+        "y": 4605,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 4600,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "unit_minor_ship_minor_company_battery_squadron_minor_flight",
+      "label": "unit (minor) ship (minor) company battery squadron (minor) flight",
+      "transform": {
+        "x": 100,
+        "y": 5200
+      },
+      "bbox": {
+        "x": 105,
+        "y": 5205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 5200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "echelon_half_squadron_troop_major_department",
+      "label": "echelon half-squadron troop (major) department",
+      "transform": {
+        "x": 100,
+        "y": 5800
+      },
+      "bbox": {
+        "x": 105,
+        "y": 5805,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 5800,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "platoon_troop",
+      "label": "platoon troop",
+      "transform": {
+        "x": 100,
+        "y": 6400
+      },
+      "bbox": {
+        "x": 105,
+        "y": 6405,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 6400,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "section_crew",
+      "label": "section crew",
+      "transform": {
+        "x": 100,
+        "y": 7000
+      },
+      "bbox": {
+        "x": 105,
+        "y": 7005,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 7000,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "squad_sub_section_crew",
+      "label": "squad sub-section crew",
+      "transform": {
+        "x": 100,
+        "y": 7600
+      },
+      "bbox": {
+        "x": 105,
+        "y": 7605,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 7600,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "team_fireteam",
+      "label": "team fireteam",
+      "transform": {
+        "x": 100,
+        "y": 8200
+      },
+      "bbox": {
+        "x": 105,
+        "y": 8205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 100,
+        "y": 8200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "headquarters",
+      "label": "headquarters",
+      "transform": {
+        "x": 2100,
+        "y": 400
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 405,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 400,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "base_station_centre_depot_facility",
+      "label": "base station centre depot facility",
+      "transform": {
+        "x": 2100,
+        "y": 1350
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 1355,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 1350,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "expeditionary_force_expeditionary_corps",
+      "label": "expeditionary force expeditionary corps",
+      "transform": {
+        "x": 2100,
+        "y": 2200
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 2205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 2200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "division_task_force",
+      "label": "division task force",
+      "transform": {
+        "x": 2100,
+        "y": 2800
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 2805,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 2800,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "squadron_task_force_naval_battle_group_brigade_task_force_brigade_group",
+      "label": "squadron task force (naval) battle group brigade task force brigade group",
+      "transform": {
+        "x": 2100,
+        "y": 3400
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 3405,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 3400,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "task_group_combat_group_regimental_group",
+      "label": "task group combat group regimental group",
+      "transform": {
+        "x": 2100,
+        "y": 4000
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 4005,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 4000,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "task_unit_battlegroup_battalion_group_squadron_group_major",
+      "label": "task unit battlegroup battalion group squadron group (major)",
+      "transform": {
+        "x": 2100,
+        "y": 4600
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 4605,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 4600,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "task_unit_minor_combat_team_company_group_squadron_group_minor",
+      "label": "task unit (minor) combat team company group squadron group (minor)",
+      "transform": {
+        "x": 2100,
+        "y": 5200
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 5205,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 5200,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "echelon_group_troop_group",
+      "label": "echelon group troop group",
+      "transform": {
+        "x": 2100,
+        "y": 5800
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 5805,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 5800,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "platoon_group",
+      "label": "platoon group",
+      "transform": {
+        "x": 2100,
+        "y": 6400
+      },
+      "bbox": {
+        "x": 2105,
+        "y": 6405,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2100,
+        "y": 6400,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "other_organizations",
+      "label": "Other Organizations",
+      "transform": {
+        "x": 10000,
+        "y": 11395
+      },
+      "bbox": {
+        "x": 10005,
+        "y": 11400,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 10000,
+        "y": 11395,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "headquarters_unit",
+      "label": "headquarters unit",
+      "transform": {
+        "x": 200,
+        "y": 300
+      },
+      "bbox": {
+        "x": 205,
+        "y": 305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 200,
+        "y": 300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "training",
+      "label": "training",
+      "transform": {
+        "x": 1100,
+        "y": 300
+      },
+      "bbox": {
+        "x": 1105,
+        "y": 305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 1100,
+        "y": 300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "education",
+      "label": "education",
+      "transform": {
+        "x": 2000,
+        "y": 300
+      },
+      "bbox": {
+        "x": 2005,
+        "y": 305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2000,
+        "y": 300,
+        "width": 600,
+        "height": 400
+      }
+    },
+    {
+      "slug": "gendarmerie",
+      "label": "gendarmerie",
+      "transform": {
+        "x": 2900,
+        "y": 300
+      },
+      "bbox": {
+        "x": 2905,
+        "y": 305,
+        "width": 590,
+        "height": 390
+      },
+      "panel": {
+        "x": 2900,
+        "y": 300,
+        "width": 600,
+        "height": 400
+      }
+    }
+  ]
+}

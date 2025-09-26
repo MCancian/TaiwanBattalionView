@@ -172,8 +172,8 @@
             max-width: 350px;
         }
 
-        .symbol-bank.blue-forces {
-            border-left: 4px solid #4169E1;
+        .symbol-bank.green-forces {
+            border-left: 4px solid #2E7D32;
         }
 
         .symbol-bank.red-forces {
@@ -188,8 +188,8 @@
             padding-bottom: 5px;
         }
 
-        .symbol-bank.blue-forces h4 {
-            color: #4169E1;
+        .symbol-bank.green-forces h4 {
+            color: #2E7D32;
         }
 
         .symbol-bank.red-forces h4 {
@@ -316,9 +316,9 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
         }
 
-        .tab-button.blue.active {
-            border-bottom: 3px solid #4169E1;
-            color: #4169E1;
+        .tab-button.green.active {
+            border-bottom: 3px solid #2E7D32;
+            color: #2E7D32;
         }
 
         .tab-button.red.active {
@@ -485,45 +485,45 @@
     
     <div class="symbol-panel" id="symbolPanel">
         <div class="symbol-tabs">
-            <button class="tab-button blue active" data-tab="blue" onclick="switchTab('blue')">Blue Forces</button>
+            <button class="tab-button green active" data-tab="green" onclick="switchTab('green')">Green Forces</button>
             <button class="tab-button red" data-tab="red" onclick="switchTab('red')">Red Forces</button>
             <button class="tab-button all" data-tab="all" onclick="switchTab('all')">All Units</button>
         </div>
         
-        <!-- Blue Forces Tab Content -->
-        <div class="tab-content active" id="blue-tab">
-            <div class="symbol-bank blue-forces">
-                <h4>Blue Forces (Taiwan) - Drag to Deploy</h4>
+        <!-- Green Forces Tab Content -->
+        <div class="tab-content active" id="green-tab">
+            <div class="symbol-bank green-forces">
+                <h4>Green Forces (Taiwan) - Drag to Deploy</h4>
             
             <div class="symbol-category">
                 <h5>Combat Units</h5>
                 <div class="symbol-grid">
-                    <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
                             <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <line x1="8" y1="25" x2="52" y2="45" stroke="black" stroke-width="3"/>
                             <line x1="8" y1="45" x2="52" y2="25" stroke="black" stroke-width="3"/>
                         </svg>
                         <p>Infantry Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="mech-infantry" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="mech-infantry" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
                             <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <line x1="8" y1="25" x2="52" y2="45" stroke="black" stroke-width="3"/>
                             <line x1="8" y1="45" x2="52" y2="25" stroke="black" stroke-width="3"/>
                             <ellipse cx="30" cy="37" rx="20" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
                         </svg>
                         <p>Mech Inf Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/>
                             <line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <ellipse cx="30" cy="35" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/>
                         </svg>
                         <p>Tank Bn</p>
@@ -534,31 +534,31 @@
             <div class="symbol-category">
                 <h5>Support Units</h5>
                 <div class="symbol-grid">
-                    <div class="draggable-symbol" data-type="artillery" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="artillery" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <circle cx="30" cy="35" r="5" fill="black"/>
                         </svg>
                         <p>Artillery Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="recon" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="recon" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <line x1="10" y1="35" x2="50" y2="35" stroke="black" stroke-width="2"/>
                             <line x1="10" y1="30" x2="10" y2="40" stroke="black" stroke-width="2"/>
                             <line x1="50" y1="30" x2="50" y2="40" stroke="black" stroke-width="2"/>
                         </svg>
                         <p>Recon Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="engineer" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="engineer" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <text x="30" y="40" text-anchor="middle" font-size="14" font-weight="bold">E</text>
                         </svg>
                         <p>Engineers Bn</p>
@@ -569,22 +569,22 @@
             <div class="symbol-category">
                 <h5>Specialized Units</h5>
                 <div class="symbol-grid">
-                    <div class="draggable-symbol" data-type="airborne" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="airborne" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <path d="M 30 28 Q 15 35 30 42 Q 45 35 30 28" fill="none" stroke="black" stroke-width="2.5"/>
                             <line x1="22" y1="27" x2="38" y2="43" stroke="black" stroke-width="3"/>
                             <line x1="22" y1="43" x2="38" y2="27" stroke="black" stroke-width="3"/>
                         </svg>
                         <p>Airborne Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="air-assault" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="air-assault" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <line x1="30" y1="28" x2="30" y2="42" stroke="black" stroke-width="2"/>
                             <line x1="18" y1="32" x2="42" y2="32" stroke="black" stroke-width="2"/>
                             <line x1="22" y1="27" x2="38" y2="43" stroke="black" stroke-width="3"/>
@@ -592,11 +592,11 @@
                         </svg>
                         <p>Air Assault Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="shorad" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="shorad" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <circle cx="30" cy="35" r="6" fill="none" stroke="black" stroke-width="2"/>
                             <line x1="20" y1="25" x2="40" y2="45" stroke="black" stroke-width="1.5"/>
                             <line x1="40" y1="25" x2="20" y2="45" stroke="black" stroke-width="1.5"/>
@@ -604,31 +604,31 @@
                         </svg>
                         <p>SHORAD Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="sp-arty" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="sp-arty" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <circle cx="30" cy="35" r="5" fill="black"/>
                             <ellipse cx="30" cy="43" rx="15" ry="6" fill="none" stroke="black" stroke-width="2"/>
                         </svg>
                         <p>SP Arty Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="sof" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="sof" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <path d="M 20 27 L 40 27 L 36 35 L 40 43 L 20 43 L 24 35 Z" fill="none" stroke="black" stroke-width="2"/>
                             <circle cx="30" cy="35" r="3" fill="black"/>
                         </svg>
                         <p>SOF Bn</p>
                     </div>
-                    <div class="draggable-symbol" data-type="recon" data-size="battalion" data-force="blue">
+                    <div class="draggable-symbol" data-type="recon" data-size="battalion" data-force="green">
                         <svg width="60" height="50" viewBox="0 0 60 50">
                             <line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/>
                             <line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/>
-                            <rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/>
+                            <rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/>
                             <ellipse cx="30" cy="35" rx="18" ry="10" fill="none" stroke="black" stroke-width="2.5"/>
                             <line x1="18" y1="35" x2="42" y2="35" stroke="black" stroke-width="2"/>
                             <line x1="30" y1="28" x2="30" y2="42" stroke="black" stroke-width="2"/>
@@ -834,13 +834,13 @@
         
         <!-- All Units Tab Content -->
         <div class="tab-content" id="all-tab">
-            <div class="symbol-bank blue-forces">
-                <h4>Blue Forces (Taiwan)</h4>
+            <div class="symbol-bank green-forces">
+                <h4>Green Forces (Taiwan)</h4>
                 <div class="symbol-category">
                     <div class="symbol-grid">
-                        <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="blue"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/><line x1="8" y1="25" x2="52" y2="45" stroke="black" stroke-width="3"/><line x1="8" y1="45" x2="52" y2="25" stroke="black" stroke-width="3"/></svg><p>Infantry</p></div>
-                        <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="blue"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/><ellipse cx="30" cy="35" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/></svg><p>Armor</p></div>
-                        <div class="draggable-symbol" data-type="artillery" data-size="battalion" data-force="blue"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/><line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/><rect x="0" y="20" width="60" height="30" fill="#87CEEB" stroke="black" stroke-width="2"/><circle cx="30" cy="35" r="5" fill="black"/></svg><p>Artillery</p></div>
+                        <div class="draggable-symbol" data-type="infantry" data-size="battalion" data-force="green"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/><line x1="8" y1="25" x2="52" y2="45" stroke="black" stroke-width="3"/><line x1="8" y1="45" x2="52" y2="25" stroke="black" stroke-width="3"/></svg><p>Infantry</p></div>
+                        <div class="draggable-symbol" data-type="armor" data-size="battalion" data-force="green"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="24" y1="3" x2="24" y2="17" stroke="black" stroke-width="3"/><line x1="36" y1="3" x2="36" y2="17" stroke="black" stroke-width="3"/><rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/><ellipse cx="30" cy="35" rx="22" ry="12" fill="none" stroke="black" stroke-width="3"/></svg><p>Armor</p></div>
+                        <div class="draggable-symbol" data-type="artillery" data-size="battalion" data-force="green"><svg width="60" height="50" viewBox="0 0 60 50"><line x1="26" y1="5" x2="26" y2="15" stroke="black" stroke-width="2.5"/><line x1="34" y1="5" x2="34" y2="15" stroke="black" stroke-width="2.5"/><rect x="0" y="20" width="60" height="30" fill="#90EE90" stroke="black" stroke-width="2"/><circle cx="30" cy="35" r="5" fill="black"/></svg><p>Artillery</p></div>
                     </div>
                 </div>
             </div>
@@ -950,7 +950,7 @@
             topPadding: 14,      // space reserved for echelon indicators
             bottomPadding: 18,    // space for designation text
             stroke: '#000',
-            friendlyFill: '#87CEEB',
+            friendlyFill: '#90EE90',
             hostileFill: '#FF6B6B',
             hostileStroke: '#C00000'
         };
@@ -1082,7 +1082,7 @@
             return common.join('');
         }
 
-        function createNATOSymbol(type, size, designation, force = 'blue') {
+    function createNATOSymbol(type, size, designation, force = 'green') {
             const cacheKey = JSON.stringify([type, size, designation, force]);
             if (__natoSymbolCache[cacheKey]) return __natoSymbolCache[cacheKey];
 
@@ -1097,7 +1097,7 @@
         }
 
         // Function to create custom NATO icon for Leaflet
-        function createNATOIcon(type, size, designation, force = 'blue') {
+    function createNATOIcon(type, size, designation, force = 'green') {
             const svgString = createNATOSymbol(type, size, designation, force);
             const iconUrl = 'data:image/svg+xml;base64,' + btoa(svgString);
             
@@ -1110,11 +1110,11 @@
         }
 
         const LEGEND_ITEMS = [
-            { label: 'Corps/Command HQ', type: 'corps-hq', size: 'corps', force: 'blue' },
-            { label: 'Mechanized Infantry', type: 'mech-infantry', size: 'brigade', force: 'blue' },
-            { label: 'Armor (Oval)', type: 'armor', size: 'brigade', force: 'blue' },
-            { label: 'Infantry', type: 'infantry', size: 'brigade', force: 'blue' },
-            { label: 'Artillery', type: 'artillery', size: 'brigade', force: 'blue' },
+            { label: 'Corps/Command HQ', type: 'corps-hq', size: 'corps', force: 'green' },
+            { label: 'Mechanized Infantry', type: 'mech-infantry', size: 'brigade', force: 'green' },
+            { label: 'Armor (Oval)', type: 'armor', size: 'brigade', force: 'green' },
+            { label: 'Infantry', type: 'infantry', size: 'brigade', force: 'green' },
+            { label: 'Artillery', type: 'artillery', size: 'brigade', force: 'green' },
             { label: 'Fuel Depot (Red)', type: 'fuel-depot', size: 'installation', force: 'red' },
             { label: 'Port (Red)', type: 'port', size: 'installation', force: 'red' }
         ];
@@ -1415,7 +1415,7 @@
             }
         });
 
-        // Define military unit locations (Blue Forces)
+    // Define military unit locations (Green Forces)
         const militaryUnits = [
             // 6th Army Corps (Northern Taiwan)
             {
@@ -1817,10 +1817,10 @@
             return html;
         }
 
-        // Add blue force markers to the map
+        // Add green force markers to the map
         militaryUnits.forEach(unit => {
             const marker = L.marker([unit.lat, unit.lng], {
-                icon: createNATOIcon(unit.natoType, unit.size, unit.designation, 'blue')
+                icon: createNATOIcon(unit.natoType, unit.size, unit.designation, 'green')
             }).addTo(map);
             
             const popupContent = `
@@ -1843,7 +1843,7 @@
             div.innerHTML = `
                 <div style="background: rgba(255,255,255,0.95); padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
                     <h2 style="margin: 0 0 10px 0; color: #333;">Taiwan Defense Analysis</h2>
-                    <p style="margin: 0; color: #666; font-size: 14px;">Blue: Taiwan Forces | Red: PLA Forces</p>
+                    <p style="margin: 0; color: #666; font-size: 14px;">Green: Taiwan Forces | Red: PLA Forces</p>
                     <p style="margin: 5px 0 0 0; color: #888; font-size: 12px;">Click units for details • Drag from banks to deploy</p>
                 </div>
             `;
@@ -1921,7 +1921,7 @@
                 const latLng = map.containerPointToLatLng(containerPoint);
                 
                 // Generate a unique designation
-                const prefix = data.force === 'red' ? 'R' : 'B';
+                const prefix = data.force === 'red' ? 'R' : 'G';
                 const designation = `${prefix}-${unitCounter++}`;
                 
                 // Create and add the marker
@@ -1931,7 +1931,7 @@
                 }).addTo(map);
                 
                 // Create popup content
-                const unitName = `${data.force === 'red' ? 'Red' : 'Blue'} ${data.type.replace('-', ' ')} Unit`;
+                const unitName = `${data.force === 'red' ? 'Red' : 'Green'} ${data.type.replace('-', ' ')} Unit`;
                 
                 const popupContent = `
                     <div class="popup-content">
