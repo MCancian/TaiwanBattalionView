@@ -3,10 +3,20 @@ const path = require('path');
 const fs = require('fs');
 
 async function captureAndAnalyze() {
-    const browser = await puppeteer.launch({
+    const launchOptions = {
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    };
+
+    // Prefer explicit executable path via env, else ask Puppeteer to use system Chrome
+    if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+        launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+    } else {
+        // Use Chrome channel (stable) if available on this system
+        launchOptions.channel = 'chrome';
+    }
+
+    const browser = await puppeteer.launch(launchOptions);
     
     try {
         const page = await browser.newPage();
@@ -24,11 +34,11 @@ async function captureAndAnalyze() {
         await page.screenshot({ path: 'full-map.png', fullPage: false });
         console.log('Full map screenshot saved as full-map.png');
         
-        // Capture just the symbol banks
-        const symbolBanks = await page.$('.symbol-banks-container');
-        if (symbolBanks) {
-            await symbolBanks.screenshot({ path: 'symbol-banks.png' });
-            console.log('Symbol banks screenshot saved as symbol-banks.png');
+        // Capture the symbols panel (tabs + banks)
+        const symbolPanel = await page.$('.symbol-panel');
+        if (symbolPanel) {
+            await symbolPanel.screenshot({ path: 'symbol-panel.png' });
+            console.log('Symbol panel screenshot saved as symbol-panel.png');
         }
         
         // Capture the legend
